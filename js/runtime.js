@@ -93,23 +93,38 @@
   function makeTts() {
     if (!("speechSynthesis" in window)) return null;
     const synth = window.speechSynthesis;
+    // Prefiere voces naturales (neuronales/premium) y español latino; evita las robóticas.
+    const NATURAL = /natural|neural|premium|enhanced|mejorada|online|google|siri/i;
+    const GOOD = /paulina|monica|mónica|sabina|dalia|salome|salomé|jorge|diego|gonzalo|elena|helena|lucia|lucía|paloma|google/i;
+    const REGION = ["es-CO", "es-MX", "es-US", "es-419", "es-AR", "es-ES"];
+    const score = (v) => {
+      const lang = v.lang.replace("_", "-");
+      const r = REGION.indexOf(lang);
+      return (NATURAL.test(v.name) ? 100 : 0) + (GOOD.test(v.name) ? 40 : 0) + (r >= 0 ? 10 - r : 0) + (v.localService ? 0 : 5);
+    };
     const pickVoice = () => {
       const vs = synth.getVoices().filter((v) => /^es(-|_|$)/i.test(v.lang));
-      const pref = ["es-CO", "es-MX", "es-US", "es-419", "es-ES"];
-      return pref.map((p) => vs.find((v) => v.lang.replace("_", "-") === p)).find(Boolean) || vs[0] || null;
+      return vs.sort((x, y) => score(y) - score(x))[0] || null;
     };
     synth.getVoices();
+    // Divide en frases: suena más fluido y evita que Chrome corte textos largos.
+    const chunks = (t) =>
+      (t.replace(/\s+/g, " ").match(/[^.!?¿¡:;]+[.!?:;]?/g) || [t]).map((x) => x.trim()).filter(Boolean);
     return {
       speak(text) {
         return new Promise((resolve) => {
           synth.cancel();
-          const u = new SpeechSynthesisUtterance(text);
           const v = pickVoice();
-          if (v) u.voice = v;
-          u.lang = v ? v.lang : "es-CO";
-          u.rate = 1.02;
-          u.onend = u.onerror = () => resolve();
-          synth.speak(u);
+          const parts = chunks(text);
+          parts.forEach((part, i) => {
+            const u = new SpeechSynthesisUtterance(part);
+            if (v) u.voice = v;
+            u.lang = v ? v.lang : "es-CO";
+            u.rate = 1.08;
+            u.pitch = 1.0;
+            u.onend = u.onerror = () => { if (i === parts.length - 1) resolve(); };
+            synth.speak(u);
+          });
         });
       },
       stop() { synth.cancel(); },
