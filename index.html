@@ -666,8 +666,8 @@ function fly(container,o){
 fly(hero,{x:24,y:26,size:120,rx:60,ry:34,speed:.45,phase:0,flap:.24});
 fly(hero,{x:76,y:28,size:70,rx:70,ry:40,speed:.55,phase:2,flap:.19});
 fly(hero,{x:31,y:74,size:58,rx:80,ry:30,speed:.6,phase:4,flap:.17});
-fly($("#aboutArt"),{x:42,y:32,size:140,rx:30,ry:24,speed:.35,phase:1,flap:.28});
-fly($("#aboutArt"),{x:28,y:70,size:78,rx:36,ry:24,speed:.5,phase:3,flap:.2});
+fly($("#aboutArt"),{x:42,y:32,size:140,rx:0,ry:0,still:true,speed:.35,phase:1,flap:.28});
+fly($("#aboutArt"),{x:28,y:70,size:78,rx:0,ry:0,still:true,speed:.5,phase:3,flap:.2});
 fly($("#invitacion"),{x:18,y:30,size:76,rx:60,ry:30,speed:.5,phase:5,flap:.2});
 fly($("#invitacion"),{x:82,y:66,size:62,rx:60,ry:30,speed:.55,phase:1.5,flap:.18});
 fly($("#agentBg"),{x:12,y:22,size:84,rx:50,ry:40,speed:.4,phase:2.5,flap:.22});
@@ -681,7 +681,7 @@ function tick(t){
     let x=r.width*f.x/100+Math.sin(s)*f.rx+Math.sin(s*2.3)*f.rx*.25;
     let y=r.height*f.y/100+Math.sin(s*1.7)*f.ry+Math.cos(s*.9)*f.ry*.3;
     const dx=r.left+x-pointer.x, dy=r.top+y-pointer.y, d=Math.hypot(dx,dy)||1;
-    if(d<170&&!REDUCE){const k=(170-d)/170*7;f.ox+=dx/d*k;f.oy+=dy/d*k}
+    if(d<170&&!REDUCE&&!f.still){const k=(170-d)/170*7;f.ox+=dx/d*k;f.oy+=dy/d*k}
     f.ox*=.95;f.oy*=.95; x+=f.ox; y+=f.oy;
     const vx=f.lx==null?0:x-f.lx, vy=f.ly==null?0:y-f.ly; f.lx=x; f.ly=y;
     if(Math.abs(vx)>.35) f.face=vx>0?1:-1;
