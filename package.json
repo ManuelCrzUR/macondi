@@ -1,0 +1,9 @@
+{
+  "name": "macondi",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "dev": "vercel dev"
+  }
+}

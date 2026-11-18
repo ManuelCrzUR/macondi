@@ -1,0 +1,996 @@
+<!doctype html><html lang="es"><head><title>Macondí — Aromas de una tierra mágica</title><meta name="description" content="Velas aromáticas de doble uso inspiradas en las regiones de Colombia. Habla con Macondí, tu guía de aromas."><link rel="icon" href="img/butterfly.webp" type="image/webp"><script src="js/runtime.js"></script><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..800,0..100,0..1&family=Poppins:wght@300;400;500;600&display=swap">
+<style>
+/* Layout: two views (tienda / agente) joined by a watercolor veil transition. Art layers come from the brand slides and move independently. Single warm-cream world by choice. */
+:root{
+  --cream:#FCF3DF; --cream-2:#F6E7C9; --paper:#FFF9EC;
+  --green:#1F3B25; --green-2:#2F5A35; --ink:#34402F; --muted:#6D6A55;
+  --orange:#EF7D3A; --gold:#E9A825; --pink:#EC8DA6;
+  --line:rgba(31,59,37,.15);
+  --display:"Fraunces","Iowan Old Style",Georgia,serif;
+  --body:"Poppins","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --ease:cubic-bezier(.2,.7,.2,1);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+/* Escala global: 125% en pantallas de escritorio, escalonado en pantallas menores para no apretar el diseño */
+:root{--z:1}
+@media (min-width:900px){:root{--z:1.12}}
+@media (min-width:1200px){:root{--z:1.25}}
+body{zoom:var(--z)}
+body{background:var(--cream);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.7;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--cream)}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;text-wrap:balance;margin:0;color:var(--green)}
+p{margin:0}
+img{max-width:100%}
+.eyebrow{font-size:.74rem;letter-spacing:.32em;text-transform:uppercase;color:var(--green-2);font-weight:500}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px;border-radius:6px}
+.btn{display:inline-flex;align-items:center;gap:.6em;border:0;border-radius:999px;padding:.9em 1.7em;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;font-weight:500;text-decoration:none;transition:transform .25s var(--ease),background .25s,box-shadow .25s}
+.btn-primary{background:var(--green);color:var(--cream)}
+.btn-primary:hover{background:var(--green-2);transform:translateY(-2px);box-shadow:0 12px 24px -12px rgba(31,59,37,.6)}
+.btn-ghost{background:rgba(255,249,236,.6);color:var(--green);box-shadow:inset 0 0 0 1.5px var(--green)}
+.btn-ghost:hover{background:var(--paper)}
+.btn-sun{background:linear-gradient(100deg,#F6B93B,#EF7D3A 55%,#E9789A);color:#fff;box-shadow:0 14px 30px -14px rgba(239,125,58,.8)}
+.btn-sun:hover{transform:translateY(-2px) scale(1.02)}
+
+/* ---------- shared art pieces ---------- */
+.bf{position:absolute;left:0;top:0;z-index:4;pointer-events:none;perspective:520px;will-change:transform}
+.bf img{display:block;width:100%;transform-origin:74% 82%;animation:flap .22s ease-in-out infinite alternate;filter:drop-shadow(0 8px 10px rgba(120,70,0,.18))}
+@keyframes flap{from{transform:rotate3d(-1,.85,0,0deg)}to{transform:rotate3d(-1,.85,0,62deg)}}
+.petal{position:absolute;top:0;z-index:3;pointer-events:none;will-change:transform}
+.sway-l{transform-origin:0% 100%;animation:swayL 11s ease-in-out infinite}
+.sway-r{transform-origin:100% 100%;animation:swayR 12s ease-in-out infinite}
+@keyframes swayL{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(1.6deg) scale(1.02)}}
+@keyframes swayR{0%,100%{transform:rotate(0) scale(1)}50%{transform:rotate(-1.6deg) scale(1.02)}}
+
+/* ---------- views ---------- */
+.view[hidden]{display:none!important}
+
+/* NAV */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:rgba(252,243,223,.82);backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .3s}
+.nav.scrolled{border-bottom-color:var(--line)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo-sm{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:650;font-size:1.45rem;letter-spacing:.04em;color:var(--green);text-decoration:none;background:none;border:0;padding:0}
+.nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.nav ul a{color:var(--ink);text-decoration:none;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;position:relative}
+.nav ul a::after{content:"";position:absolute;left:0;right:0;bottom:-4px;height:1.5px;background:var(--orange);transform:scaleX(0);transform-origin:left;transition:transform .35s var(--ease)}
+.nav ul a:hover::after{transform:scaleX(1)}
+.nav .btn{padding:.7em 1.25em;font-size:.7rem}
+@media (max-width:860px){.nav ul{display:none}}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;min-height:clamp(560px,56.25vw,880px);display:grid;place-items:center;text-align:center;padding-block:90px}
+.hero .layer{position:absolute;top:0;height:100%;z-index:1;pointer-events:none;transform:translateY(calc(var(--sy,0)*var(--k)*1px));will-change:transform}
+.hero .layer.l{left:0;--k:.2}
+.hero .layer.r{right:0;--k:.12}
+.hero .layer img{display:block;height:100%;width:auto;max-width:none}
+.hero .layer.l .in{height:100%;animation:bloomL 1.8s var(--ease) both}
+.hero .layer.r .in{height:100%;animation:bloomR 1.8s .12s var(--ease) both}
+@keyframes bloomL{from{opacity:0;transform:translateX(-10%) scale(1.08);filter:blur(14px) saturate(.5)}to{opacity:1;transform:none;filter:none}}
+@keyframes bloomR{from{opacity:0;transform:translateX(10%) scale(1.08);filter:blur(14px) saturate(.5)}to{opacity:1;transform:none;filter:none}}
+.thread{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.thread path{fill:none;stroke:var(--gold);stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:draw 3.2s 1s var(--ease) forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.hero-inner{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:20px;max-width:760px}
+.wordmark{font-weight:640;font-size:clamp(3.4rem,11.5vw,9rem);line-height:.92;letter-spacing:.02em;font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;display:flex}
+.wordmark span{display:inline-block;animation:letter 1.1s var(--ease) both;animation-delay:calc(.5s + var(--i)*.08s)}
+@keyframes letter{from{opacity:0;transform:translateY(45%) rotate(5deg);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.tagline{font-size:clamp(.72rem,1.6vw,1rem);letter-spacing:.42em;text-transform:uppercase;color:var(--green-2);animation:track 1.6s 1.1s var(--ease) both}
+@keyframes track{from{opacity:0;letter-spacing:1.1em}to{opacity:1;letter-spacing:.42em}}
+.hero-sub{max-width:33em;color:var(--muted);animation:up 1s 1.4s var(--ease) both}
+.hero-cta{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;animation:up 1s 1.55s var(--ease) both}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.scroll-cue{position:absolute;bottom:22px;left:50%;translate:-50% 0;z-index:5;width:22px;height:36px;border-radius:12px;box-shadow:inset 0 0 0 1.5px var(--green-2);opacity:.6}
+.scroll-cue::after{content:"";position:absolute;left:50%;top:8px;width:3px;height:7px;border-radius:2px;background:var(--green-2);translate:-50% 0;animation:cue 1.8s ease-in-out infinite}
+@keyframes cue{60%{transform:translateY(10px);opacity:0}}
+@media (max-width:760px){
+  .hero{padding-block:120px 110px}
+  .hero .layer{height:58%}
+  .hero .layer.l{left:-22%}
+  .hero .layer.r{right:-22%;top:auto;bottom:0}
+  .hero .layer img{opacity:.9}
+}
+
+/* REVEAL */
+.pre{opacity:0;transform:translateY(34px)}
+.rv{transition:opacity 1s var(--ease),transform 1s var(--ease);transition-delay:var(--dl,0s)}
+
+/* ABOUT */
+.about{padding-block:clamp(90px,10vw,150px);position:relative;overflow:hidden}
+.about .wrap{position:relative;z-index:2}
+.about-copy{max-width:min(660px,calc(100% - 360px))}
+.about h2{font-size:clamp(2.4rem,6vw,4.6rem);color:var(--orange);font-weight:560;line-height:1}
+.about p.lead{margin-top:24px;font-size:clamp(1rem,1.5vw,1.1rem);letter-spacing:.07em;line-height:1.9;max-width:38em}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.value{border-top:1.5px solid var(--green);padding-top:12px}
+.value b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;color:var(--green);font-size:1.12rem;line-height:1.3}
+.value span{font-size:.84rem;color:var(--muted);line-height:1.55;display:block;margin-top:6px}
+.about-art{position:absolute;top:0;right:0;bottom:0;z-index:1;pointer-events:none}
+.about-art img{display:block;height:100%;width:auto;max-width:none}
+@media (max-width:900px){.about{padding-bottom:0}.about-copy{max-width:none}.about-art{position:relative;height:360px;display:flex;justify-content:flex-end;margin-top:28px}.values{grid-template-columns:1fr}}
+
+/* COLLECTION */
+.collection{padding-block:clamp(70px,8vw,120px);position:relative;overflow:hidden;--tint:var(--cream);background:var(--cream)}
+.collection::before{content:"";position:absolute;inset:0;background:radial-gradient(70% 60% at 50% 60%,var(--tint),transparent 75%);opacity:.85;transition:background 1s}
+.collection .wrap{position:relative}
+.col-head{text-align:center;display:flex;flex-direction:column;gap:12px;align-items:center;margin-bottom:48px}
+.col-head h2{font-size:clamp(2rem,5.4vw,4rem);font-weight:600;line-height:1.05;text-transform:uppercase}
+.col-head p{letter-spacing:.26em;text-transform:uppercase;font-size:.76rem;color:var(--green-2)}
+.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+@media (max-width:1080px){.cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:16px;scrollbar-width:none;margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px))}.cards::-webkit-scrollbar{display:none}.card{flex:0 0 min(76vw,270px);scroll-snap-align:center}}
+.card{--c:#999;--t:#eee;position:relative;border-radius:999px 999px 24px 24px/240px 240px 24px 24px;padding:34px 14px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:5px;background:linear-gradient(180deg,var(--t),color-mix(in srgb,var(--t) 55%,var(--paper)) 70%,var(--paper));transition:transform .5s var(--ease),box-shadow .5s;outline-offset:6px}
+.card:hover,.card:focus-within{transform:translateY(-10px);box-shadow:0 30px 50px -30px color-mix(in srgb,var(--c) 70%,transparent)}
+.card h3{font-size:clamp(1.6rem,2.3vw,2.15rem);font-weight:650;letter-spacing:.03em;text-transform:uppercase}
+.card .region{font-size:.64rem;letter-spacing:.24em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid color-mix(in srgb,var(--c) 45%,transparent);padding:2px 10px 6px}
+.card .notes{font-size:.92rem;color:var(--green)}
+.card .shot{position:relative;width:112%;margin-inline:-6%;aspect-ratio:345/340;margin-top:4px}
+.card .shot img{width:100%;height:100%;object-fit:fill;-webkit-mask-image:radial-gradient(ellipse 72% 70% at 50% 52%,#000 58%,transparent 100%);mask-image:radial-gradient(ellipse 72% 70% at 50% 52%,#000 58%,transparent 100%);transition:transform .8s var(--ease)}
+.card:hover .shot img{transform:scale(1.06) translateY(-2px)}
+/* living flame */
+.fl{position:absolute;left:var(--fx);top:var(--fy);width:3.6%;height:11.5%;translate:-50% -100%;pointer-events:none;z-index:2;transition:opacity .6s,scale .6s var(--ease);transform-origin:50% 100%}
+.fl::after{content:"";position:absolute;left:50%;top:45%;width:900%;height:300%;translate:-50% -50%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,216,140,.6),rgba(255,200,110,0));mix-blend-mode:screen;animation:fglow 2.3s ease-in-out infinite;animation-delay:var(--fd,0s)}
+.fl::before{content:"";position:absolute;left:50%;bottom:-4%;width:55%;height:20%;translate:-50% 0;border-radius:50%;background:radial-gradient(rgba(90,120,255,.75),rgba(90,120,255,0) 70%);z-index:1}
+.fl b{position:absolute;inset:0;transform-origin:50% 100%;animation:fsway 3.4s ease-in-out infinite;animation-delay:var(--fd,0s)}
+.fl i{position:absolute;inset:0;border-radius:50% 50% 50% 50%/66% 66% 34% 34%;background:radial-gradient(ellipse 55% 62% at 50% 76%,#fff 0 26%,#fff2c2 40%,#ffd25c 60%,rgba(255,150,45,.9) 80%,rgba(255,120,30,0) 100%);transform-origin:50% 100%;animation:fflick 1.1s linear infinite;animation-delay:var(--fd,0s);filter:blur(.3px)}
+.card:hover .fl i{animation-duration:.55s}
+@keyframes fflick{0%{transform:scale(1,1)}12%{transform:scale(.93,1.07)}25%{transform:scale(1.05,.94)}37%{transform:scale(.96,1.12)}50%{transform:scale(1.02,.97)}62%{transform:scale(.94,1.05)}75%{transform:scale(1.04,.92)}87%{transform:scale(.97,1.08)}100%{transform:scale(1,1)}}
+@keyframes fsway{0%,100%{transform:rotate(0) skewX(0)}20%{transform:rotate(-2.5deg) skewX(3deg)}45%{transform:rotate(1.5deg) skewX(-2deg)}62%{transform:rotate(-1deg) skewX(1deg)}85%{transform:rotate(3deg) skewX(-4deg)}}
+@keyframes fglow{0%,100%{opacity:.7}30%{opacity:1}55%{opacity:.55}80%{opacity:.9}}
+.card .foot{display:grid;grid-template-columns:60px minmax(0,1fr);gap:10px;align-items:center;text-align:left;margin-top:4px;width:100%}
+.co{width:60px;height:auto;display:block;overflow:visible}
+.co-o{fill:none;stroke:#57543f;stroke-width:1.6;stroke-linejoin:round}
+.co-f{fill:#FFFBF2;stroke:#d8cfb6;stroke-width:.3}
+.co-r{stroke:none;animation:rpulse 3.2s ease-in-out infinite}
+@keyframes rpulse{0%,100%{fill-opacity:.95}50%{fill-opacity:.6}}
+.card p.desc{font-size:.78rem;line-height:1.5;color:var(--ink)}
+.card .ask{margin-top:12px;border:0;background:none;color:var(--green);font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid currentColor;padding:2px 0}
+.card .ask:hover{color:var(--c)}
+
+/* RITUAL */
+.ritual{padding-block:clamp(70px,8vw,120px);background:var(--cream-2);position:relative;overflow:hidden}
+.ritual .wrap{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.ritual .steps{margin-top:28px}
+.steps li{cursor:pointer;position:relative;overflow:hidden;opacity:.62;border:0;text-align:left}
+.steps li.on{opacity:1;box-shadow:0 18px 34px -24px rgba(90,50,10,.5)}
+.steps li::after{content:"";position:absolute;left:0;bottom:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),var(--orange))}
+.steps li.on::after{animation:prog var(--dur,5s) linear forwards}
+.steps.paused li.on::after{animation-play-state:paused}
+@keyframes prog{to{width:100%}}
+.rstage{position:relative;border-radius:999px 999px 30px 30px/300px 300px 30px 30px;background:linear-gradient(180deg,#F0D2B0,#F7E3CB 70%,var(--paper));padding:46px 24px 30px;transition:background 1s}
+.rstage.s2{background:linear-gradient(180deg,#F3DCC0,#F9EAD6 70%,var(--paper))}
+.rstage.s3{background:linear-gradient(180deg,#F6D9C9,#FBEADF 70%,var(--paper))}
+.rimg{position:relative;aspect-ratio:345/340;max-width:440px;margin:0 auto}
+.rimg > img{width:100%;height:100%;object-fit:fill;display:block;-webkit-mask-image:radial-gradient(ellipse 72% 70% at 50% 52%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 72% 70% at 50% 52%,#000 60%,transparent 100%)}
+.rstage:not(.s1) .fl{opacity:0;scale:1 .15}
+.rtag{position:absolute;left:50%;top:16px;translate:-50% 0;z-index:6;background:var(--paper);color:var(--green);border-radius:999px;padding:.4em 1.1em;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;box-shadow:0 8px 20px -12px rgba(60,40,10,.5);white-space:nowrap}
+.rtag.swap{animation:pop .5s var(--ease)}
+.wisps{position:absolute;left:39%;top:-22%;width:30%;height:42%;overflow:visible;pointer-events:none;z-index:3}
+.wisps path{fill:none;stroke-linecap:round;stroke-width:2.4;stroke-dasharray:1;stroke-dashoffset:1;opacity:0}
+.s1 .aroma path{animation:wisp 3.2s ease-out infinite}
+.s1 .aroma path:nth-child(2){animation-delay:1s}.s1 .aroma path:nth-child(3){animation-delay:2s}
+.s2 .smoke path{animation:wisp 2.6s ease-out infinite}
+.s2 .smoke path:nth-child(2){animation-delay:.9s}
+@keyframes wisp{0%{stroke-dashoffset:1;opacity:0;transform:translateY(12%)}25%{opacity:.9}100%{stroke-dashoffset:0;opacity:0;transform:translateY(-14%)}}
+.pool{position:absolute;left:54%;top:29.6%;width:34%;height:7%;translate:-50% -50%;border-radius:50%;background:radial-gradient(ellipse at 50% 50%,rgba(255,236,190,.95),rgba(246,214,150,.7) 60%,rgba(240,200,130,0) 100%);opacity:0;transition:opacity 1s .4s;z-index:2;overflow:hidden}
+.pool::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.85) 45%,transparent 60%);background-size:250% 100%;animation:shine 2.4s ease-in-out infinite}
+@keyframes shine{from{background-position:120% 0}to{background-position:-120% 0}}
+.rstage:not(.s1) .pool{opacity:1}
+.thermo{position:absolute;right:6%;top:30%;z-index:6;display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:14px;padding:8px 12px;font-size:.76rem;color:var(--green);box-shadow:0 10px 24px -14px rgba(60,40,10,.5);opacity:0;transform:translateY(10px);transition:all .6s var(--ease)}
+.thermo i{width:8px;height:34px;border-radius:6px;background:var(--cream-2);position:relative;overflow:hidden}
+.thermo i::after{content:"";position:absolute;left:0;right:0;bottom:0;height:90%;background:linear-gradient(0deg,#F08A45,#F6B93B)}
+.s2 .thermo{opacity:1;transform:none}
+.s2 .thermo i::after{animation:cool 4s ease-out forwards}
+@keyframes cool{from{height:95%}to{height:45%}}
+.finger{position:absolute;left:47%;top:-36%;width:18%;height:66%;z-index:4;opacity:0;pointer-events:none;overflow:visible}
+.s3 .finger{animation:dip 5s var(--ease) forwards}
+@keyframes dip{0%{opacity:0;transform:translate(60%,-30%) rotate(18deg)}15%{opacity:1}38%,52%{opacity:1;transform:translate(0,0) rotate(6deg)}75%{opacity:1;transform:translate(45%,-35%) rotate(16deg)}100%{opacity:0;transform:translate(60%,-45%) rotate(18deg)}}
+.sparks{position:absolute;inset:0;z-index:5;pointer-events:none}
+.sparks span{position:absolute;width:10px;height:10px;opacity:0;background:radial-gradient(circle,#fff 0 25%,rgba(255,226,140,.9) 40%,rgba(255,226,140,0) 70%)}
+.s3 .sparks span{animation:spark 1.4s ease-out forwards}
+@keyframes spark{0%{opacity:0;transform:scale(.3)}40%{opacity:1;transform:scale(1.4)}100%{opacity:0;transform:scale(.6) translateY(-20px)}}
+.ritual h2{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:560;line-height:1.05}
+.ritual h2 em{font-style:italic;color:var(--orange)}
+.ritual .intro{margin-top:16px;max-width:30em}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:56px 1fr;gap:16px;align-items:start;background:var(--paper);border-radius:20px;padding:18px 20px;counter-increment:s;transition:transform .4s var(--ease)}
+.steps li:hover{transform:translateX(6px)}
+.steps li::before{content:counter(s);font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:600;font-size:2.2rem;line-height:1;color:var(--orange)}
+.steps b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;color:var(--green);font-size:1.1rem}
+.steps span{display:block;font-size:.88rem;color:var(--muted);line-height:1.6}
+.safety{margin-top:16px;font-size:.78rem;color:var(--muted)}
+@media (max-width:860px){.ritual .wrap{grid-template-columns:1fr}}
+
+/* INVITE */
+.invite{position:relative;overflow:hidden;padding-block:clamp(90px,11vw,150px);text-align:center}
+.invite .wl,.invite .wr{position:absolute;top:0;height:100%;width:auto;max-width:none;pointer-events:none;opacity:.95}
+.invite .wl{left:-60px}.invite .wr{right:-60px}
+.invite .wrap{position:relative;z-index:5;display:flex;flex-direction:column;align-items:center;gap:18px}
+.invite h2{font-size:clamp(2.2rem,5.6vw,4.2rem);font-weight:580;line-height:1.02;max-width:12em}
+.invite p{max-width:34em;color:var(--muted)}
+.invite .chips{justify-content:center;max-width:640px}
+@media (max-width:700px){.invite .wl,.invite .wr{opacity:.45}}
+
+footer{background:var(--green);color:var(--cream);padding-block:56px 40px}
+footer .wrap{display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;align-items:flex-end}
+footer .big{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:640;font-size:clamp(2.6rem,7vw,4.6rem);line-height:1;letter-spacing:.03em}
+footer small{display:block;letter-spacing:.32em;text-transform:uppercase;font-size:.7rem;color:#e8d9b5;margin-top:10px}
+footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
+
+.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:35;transition:transform .4s var(--ease),opacity .4s}
+.fab.away{transform:translateY(140%);opacity:0;pointer-events:none}
+
+/* ---------- AGENT VIEW ---------- */
+#agentView{position:relative;min-height:calc(100vh / var(--z));overflow:hidden}
+#agentView .bg{position:absolute;inset:0;pointer-events:none;z-index:0}
+#agentView .bg img{position:absolute;top:0;height:100%;width:auto;max-width:none;opacity:.8}
+#agentView .bg .l{left:-80px}#agentView .bg .r{right:-80px}
+.a-top{position:relative;z-index:10}
+.a-top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:16px}
+.back{display:inline-flex;align-items:center;gap:8px;border:0;background:rgba(255,249,236,.75);backdrop-filter:blur(8px);color:var(--green);border-radius:999px;padding:.6em 1.1em;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
+.back:hover{background:var(--paper)}
+#backBtn{gap:8px;padding:.7em 1.3em .7em 1.05em;font-size:.8rem;font-weight:500;letter-spacing:.14em;text-decoration:none;color:#fff;background:linear-gradient(100deg,#F6B93B,#EF7D3A 55%,#E9789A);box-shadow:0 10px 22px -14px rgba(239,125,58,.8);transition:transform .25s var(--ease),box-shadow .25s,filter .25s}
+#backBtn svg{width:17px;height:17px;transition:transform .3s var(--ease)}
+#backBtn:hover{background:linear-gradient(100deg,#F6B93B,#EF7D3A 55%,#E9789A);filter:brightness(1.05);transform:translateY(-1px);box-shadow:0 14px 26px -14px rgba(239,125,58,.9)}
+#backBtn:hover svg{transform:translateX(-3px)}
+#backBtn:focus-visible{outline:2px solid var(--green);outline-offset:3px}
+.a-main{position:relative;z-index:6;padding-block:8px 40px}
+.a-head{text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:22px}
+.a-head h1{font-size:clamp(2rem,4.6vw,3.4rem);font-weight:580;line-height:1.05}
+.a-head p{color:var(--muted);max-width:34em}
+.studio{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:stretch;max-width:920px;margin-inline:auto}
+@media (max-width:900px){.studio{grid-template-columns:1fr}}
+.panel{background:rgba(255,249,236,.88);backdrop-filter:blur(14px);border-radius:28px;box-shadow:0 0 0 1px rgba(255,255,255,.6),0 40px 70px -40px rgba(90,50,10,.45);min-width:0}
+.chatbox{display:flex;flex-direction:column;height:min(680px,calc(100vh / var(--z) - 230px));min-height:520px;overflow:hidden}
+.enter{animation:up .9s var(--ease) both;animation-delay:var(--dl,0s)}
+.chat-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.who{display:flex;gap:12px;align-items:center}
+.avatar{width:44px;height:44px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff4d2,#f7d27a);display:grid;place-items:center;flex:none;perspective:200px}
+.avatar img{width:30px;transform-origin:74% 82%;animation:flap .3s ease-in-out infinite alternate}
+.who b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;color:var(--green);font-size:1.05rem;line-height:1.2}
+.status{font-size:.72rem;color:var(--muted);display:flex;align-items:center;gap:6px}
+.status i{width:7px;height:7px;border-radius:50%;background:#9aa58c}
+.status.on i{background:#4BA35A;box-shadow:0 0 0 3px rgba(75,163,90,.18)}
+.tabs{display:inline-flex;background:var(--cream);border-radius:999px;padding:4px;position:relative}
+.tabs button{border:0;background:none;padding:.5em 1.1em;border-radius:999px;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);transition:background .3s,color .3s}
+.tabs button[aria-selected="true"]{background:var(--green);color:var(--cream)}
+.log{flex:1;overflow-y:auto;padding:20px 18px;display:flex;flex-direction:column;gap:14px}
+.example-tag{align-self:center;font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border:1px dashed var(--line);border-radius:999px;padding:3px 12px}
+.msg{max-width:82%;padding:12px 16px;border-radius:20px;font-size:.92rem;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere;animation:pop .45s var(--ease) both}
+@keyframes pop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}
+.msg.user{align-self:flex-end;background:var(--green);color:var(--cream);border-bottom-right-radius:6px;transform-origin:right bottom}
+.msg.bot{align-self:flex-start;background:var(--cream);color:var(--ink);border-bottom-left-radius:6px;transform-origin:left bottom}
+.msg.thinking{color:var(--muted);font-style:italic}
+.dots{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+.dots i{width:5px;height:5px;border-radius:50%;background:var(--orange);animation:bounce 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{40%{transform:translateY(-5px);opacity:.5}}
+.msg.note{align-self:center;background:none;color:var(--muted);font-size:.78rem;text-align:center;max-width:90%}
+.recs{display:flex;gap:10px;flex-wrap:wrap;align-self:flex-start;max-width:100%}
+.rec{--c:var(--green);--t:#eee;display:flex;gap:12px;align-items:center;background:linear-gradient(120deg,var(--t),var(--paper));border-radius:18px;padding:8px 16px 8px 8px;min-width:0;animation:pop .6s var(--ease) both;animation-delay:var(--dl,0s)}
+.rec img{width:58px;height:58px;border-radius:14px;object-fit:cover;flex:none}
+.rec b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:650;color:var(--green);letter-spacing:.04em;text-transform:uppercase;font-size:1rem;line-height:1.2}
+.rec small{font-size:.74rem;color:var(--muted)}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chatbox .chips{padding:0 18px 10px}
+.chip{border:1px solid var(--line);background:var(--paper);color:var(--green);border-radius:999px;padding:.45em .95em;font-size:.78rem;transition:all .25s}
+.chip:hover{border-color:var(--green);background:var(--cream);transform:translateY(-2px)}
+.composer{display:flex;gap:8px;align-items:flex-end;padding:12px 14px 14px;border-top:1px solid var(--line)}
+.composer textarea{flex:1;min-width:0;resize:none;border:1px solid var(--line);background:var(--cream);border-radius:18px;padding:12px 14px;font:inherit;font-size:.92rem;color:var(--ink);max-height:140px}
+.composer textarea:focus{outline:none;border-color:var(--green)}
+.iconbtn{width:46px;height:46px;flex:none;border-radius:50%;border:0;display:grid;place-items:center;background:var(--cream);color:var(--green);transition:background .2s,transform .2s}
+.iconbtn:hover{background:var(--cream-2);transform:scale(1.05)}
+.iconbtn.send{background:var(--green);color:var(--cream)}
+.iconbtn.send:disabled{opacity:.45;cursor:default;transform:none}
+.iconbtn.live{background:var(--orange);color:#fff;animation:pulse 1.2s ease-in-out infinite}
+.iconbtn[aria-pressed="true"]{background:var(--gold);color:var(--green)}
+@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(239,125,58,.18)}}
+.quiz{flex:1;overflow-y:auto;padding:22px 20px;display:flex;flex-direction:column;gap:18px}
+.quiz > *{animation:up .6s var(--ease) both}
+.quiz h3{font-size:1.5rem;font-weight:600}
+.q-meta{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.qbar{height:4px;border-radius:4px;background:var(--cream-2);overflow:hidden}
+.qbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--orange));transition:width .6s var(--ease)}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.opt{border:1px solid var(--line);background:var(--cream);border-radius:16px;padding:14px;text-align:left;color:var(--ink);font-size:.9rem;line-height:1.4;transition:all .25s}
+.opt small{display:block;color:var(--muted);font-size:.76rem;margin-top:2px}
+.opt:hover{border-color:var(--green);transform:translateY(-2px)}
+.opt[aria-pressed="true"]{background:var(--green);color:var(--cream)}
+.opt[aria-pressed="true"] small{color:rgba(252,243,223,.75)}
+.result{display:grid;grid-template-columns:200px 1fr;gap:18px;align-items:center}
+.result img{width:100%;border-radius:22px;aspect-ratio:1;object-fit:cover}
+@media (max-width:560px){.result{grid-template-columns:1fr}.result img{max-width:240px}}
+.quiz-nav{display:flex;gap:10px;justify-content:space-between;flex-wrap:wrap}
+.side{padding:22px 20px;display:flex;flex-direction:column;gap:16px}
+.side h3{font-size:1.25rem;font-weight:600}
+.hint{font-size:.8rem;color:var(--muted);line-height:1.5}
+.prof{display:grid;gap:10px;margin:0}
+.prof div{display:grid;grid-template-columns:92px 1fr;gap:10px;align-items:baseline;border-bottom:1px dashed var(--line);padding-bottom:8px}
+.prof dt{font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.prof dd{margin:0;font-size:.88rem;color:var(--green);font-weight:500;min-width:0;overflow-wrap:anywhere}
+.prof dd.empty{color:#b3ab92;font-weight:400}
+.prof dd.flash{animation:flash 1s var(--ease)}
+@keyframes flash{0%{background:rgba(242,179,44,.45)}100%{background:transparent}}
+.skills{display:flex;flex-wrap:wrap;gap:6px}
+.skills span{font-size:.7rem;background:var(--cream);border-radius:999px;padding:.35em .8em;color:var(--green-2)}
+
+/* ---------- VEIL (page transition) ---------- */
+#veil{position:fixed;inset:0;z-index:100;clip-path:circle(0 at 50% 50%);background:linear-gradient(115deg,#F8C95A 0%,#F29A4E 38%,#EE8FA6 72%,#CB9BDD 100%);display:grid;place-items:center;overflow:hidden}
+#veil .vw{position:absolute;top:0;height:100%;width:auto;max-width:none;opacity:.9}
+#veil .vw.l{left:-40px}#veil .vw.r{right:-40px}
+#veil .mark{position:relative;z-index:2;text-align:center;color:var(--paper);display:flex;flex-direction:column;align-items:center;gap:10px}
+#veil .mark b{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;font-weight:640;font-size:clamp(2.6rem,9vw,6rem);letter-spacing:.03em;line-height:1;color:var(--green)}
+#veil .mark span{letter-spacing:.4em;text-transform:uppercase;font-size:.78rem;color:var(--green)}
+#veil .vbf{width:110px;perspective:500px}
+#veil .vbf img{width:100%;transform-origin:74% 82%;animation:flap .2s ease-in-out infinite alternate}
+
+/* voice mode */
+.chatbox{position:relative}
+.voicebtn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:.55em 1.1em;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;background:linear-gradient(100deg,#F6B93B,#EF7D3A 60%,#E9789A);color:#fff;box-shadow:0 10px 20px -12px rgba(239,125,58,.9);transition:transform .2s}
+.voicebtn:hover{transform:translateY(-1px) scale(1.03)}
+.top-r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.voice{position:absolute;inset:0;z-index:8;border-radius:inherit;background:radial-gradient(120% 70% at 50% 0%,#FFF1D2,var(--paper) 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:56px 22px 24px;text-align:center;overflow-y:auto;animation:pop .45s var(--ease) both}
+.vclose{position:absolute;top:14px;left:14px}
+.orb{position:relative;width:180px;height:180px;flex:none;border-radius:50%;border:0;background:none;padding:0;display:grid;place-items:center}
+.orb:disabled{cursor:default;opacity:.55}
+.orb .core{position:relative;width:128px;height:128px;border-radius:50%;display:grid;place-items:center;transition:transform .18s ease-out;perspective:300px}
+.orb .core::before{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,#F8C95A,#F29A4E,#EE8FA6,#CB9BDD,#F8C95A);box-shadow:0 22px 44px -18px rgba(239,125,58,.8)}
+.orb .core::after{content:"";position:absolute;inset:9px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#FFFBF0,#FCEBC6)}
+.orb .core img{position:relative;z-index:1;width:66px;transform-origin:74% 82%;animation:flap .45s ease-in-out infinite alternate}
+.orb .ring{position:absolute;inset:6px;border-radius:50%;border:2px solid rgba(239,125,58,.55);opacity:0}
+.voice.listening .ring{animation:ring 1.6s ease-out infinite}
+.voice.listening .ring.r2{animation-delay:.8s}
+.voice.listening .core img{animation-duration:.18s}
+@keyframes ring{from{transform:scale(.75);opacity:.9}to{transform:scale(1.3);opacity:0}}
+.voice.thinking .core::before{animation:spin 1.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.voice.speaking .core{animation:talk .5s ease-in-out infinite alternate}
+@keyframes talk{to{transform:scale(1.08)}}
+.vstate{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:1.3rem;color:var(--green);max-width:24em;line-height:1.35}
+.vtext{font-size:1rem;color:var(--ink);max-width:32em;min-height:1.6em}
+.vtext .partial{color:var(--muted);font-style:italic}
+.vreply{font-size:.92rem;color:var(--muted);max-width:34em;white-space:pre-wrap;line-height:1.6}
+.voice .recs{align-self:center;justify-content:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}.thread path{stroke-dashoffset:0}}
+</style>
+
+<!-- ================= TIENDA ================= -->
+<div class="view" id="homeView">
+  <nav class="nav" aria-label="Principal" id="nav">
+    <div class="wrap">
+      <a class="logo-sm" href="#inicio">MACONDÍ</a>
+      <ul>
+        <li><a href="#nosotros">Nosotros</a></li>
+        <li><a href="#coleccion">Colección</a></li>
+        <li><a href="#ritual">Doble uso</a></li>
+        <li><a href="#agente" data-go-agent>Encuentra tu vela</a></li>
+      </ul>
+      <a class="btn btn-primary" href="#agente" data-go-agent>Habla con Macondí</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="inicio">
+    <div class="layer l"><div class="in"><img class="sway-l" src="img/hero-left.webp" alt=""></div></div>
+    <div class="layer r"><div class="in"><img class="sway-r" src="img/hero-right.webp" alt=""></div></div>
+    <svg class="thread" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
+      <path pathLength="1" d="M420 600 C520 640 600 700 700 760 C820 830 960 840 1060 800 C1160 760 1200 700 1300 690"/>
+      <path pathLength="1" d="M300 420 C380 300 470 200 560 170 C620 150 640 260 560 300" style="animation-delay:1.6s"/>
+    </svg>
+    <div class="wrap hero-inner">
+      <h1 class="wordmark" aria-label="Macondí"><span style="--i:0">M</span><span style="--i:1">A</span><span style="--i:2">C</span><span style="--i:3">O</span><span style="--i:4">N</span><span style="--i:5">D</span><span style="--i:6">Í</span></h1>
+      <p class="tagline">Aromas de una tierra mágica</p>
+      <p class="hero-sub">Velas aromáticas de doble uso: perfuman tu espacio y luego se convierten en un ritual de hidratación para tus manos. Cinco aromas, uno por cada región de Colombia.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#coleccion">Ver la colección</a>
+        <a class="btn btn-ghost" href="#agente" data-go-agent>Encontrar mi vela</a>
+      </div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"></div>
+  </header>
+
+  <section class="about" id="nosotros">
+    <div class="about-art" id="aboutArt" aria-hidden="true"><img class="sway-r" src="img/waves-right.webp" alt=""></div>
+    <div class="wrap">
+      <div class="about-copy">
+        <h2 data-rv>¿Quiénes somos?</h2>
+        <p class="lead" data-rv style="--dl:.1s">Macondí es un emprendimiento colombiano que transforma la riqueza natural y cultural de nuestro país en velas aromáticas de doble uso, que perfuman los espacios y se convierten en una experiencia sensorial de hidratación y cuidado para las manos. A través de ingredientes seleccionados y aromas inspirados en las cinco regiones de Colombia, creamos una propuesta que une bienestar, identidad y aprovechamiento consciente en un solo producto.</p>
+        <div class="values">
+          <div class="value" data-rv style="--dl:.15s"><b>Bienestar</b><span>Un aroma para el espacio y un momento de cuidado para ti.</span></div>
+          <div class="value" data-rv style="--dl:.25s"><b>Identidad</b><span>Cada vela nace de una región y de su paisaje.</span></div>
+          <div class="value" data-rv style="--dl:.35s"><b>Aprovechamiento consciente</b><span>La cera derretida no se pierde: se vuelve cuidado para tus manos.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="collection" id="coleccion">
+    <div class="wrap">
+      <div class="col-head">
+        <p data-rv>Colección Macondí</p>
+        <h2 data-rv style="--dl:.08s">Cinco regiones, cinco aromas.</h2>
+        <p data-rv style="--dl:.16s">Una colección inspirada en la diversidad de Colombia</p>
+      </div>
+      <div class="cards" id="cards"></div>
+    </div>
+  </section>
+
+  <section class="ritual" id="ritual">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow" data-rv>Doble uso</p>
+        <h2 data-rv style="--dl:.08s">Primero perfuma tu casa. Después <em>cuida tus manos.</em></h2>
+        <p class="intro" data-rv style="--dl:.16s">Cada vela Macondí tiene dos vidas. Mientras arde, llena el espacio con el aroma de una región. Cuando la cera se derrite, se convierte en un momento de hidratación para tus manos.</p>
+        <ol class="steps" id="steps">
+          <li data-step="1" class="on" tabindex="0" data-rv><div><b>Enciende</b><span>Deja que la vela arda hasta que se forme una capa de cera líquida y el aroma llene el espacio.</span></div></li>
+          <li data-step="2" tabindex="0" data-rv style="--dl:.12s"><div><b>Apaga y espera</b><span>Apaga la llama y deja reposar la cera unos instantes, hasta que esté tibia al tacto.</span></div></li>
+          <li data-step="3" tabindex="0" data-rv style="--dl:.24s"><div><b>Aplica</b><span>Toma un poco de cera con los dedos y masajea tus manos y cutículas hasta que la piel la absorba.</span></div></li>
+        </ol>
+        <p class="safety" data-rv style="--dl:.3s">Prueba siempre la temperatura en una zona pequeña antes de aplicar. Úsala solo cuando la cera esté tibia, nunca caliente.</p>
+      </div>
+      <div class="rstage s1" id="rstage" data-rv aria-hidden="true">
+        <span class="rtag" id="rtag">El aroma llena tu espacio</span>
+        <div class="rimg">
+          <img src="img/candle-origen.webp" alt="">
+          <span class="pool"></span>
+          <span class="fl" style="--fx:54.2%;--fy:28.8%"><b><i></i></b></span>
+          <svg class="wisps aroma" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path pathLength="1" d="M50 100 C30 80 70 65 48 45 C30 30 60 18 50 0" stroke="rgba(255,255,255,.9)"/>
+            <path pathLength="1" d="M52 100 C75 82 35 62 60 42 C80 26 45 14 62 0" stroke="rgba(233,168,37,.75)"/>
+            <path pathLength="1" d="M48 100 C25 85 55 70 35 50 C20 35 40 20 30 2" stroke="rgba(236,141,166,.7)"/>
+          </svg>
+          <svg class="wisps smoke" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <path pathLength="1" d="M50 100 C40 85 62 72 50 58 C38 44 60 30 52 10" stroke="rgba(150,140,125,.7)"/>
+            <path pathLength="1" d="M51 100 C62 86 42 70 56 54 C66 42 46 26 58 8" stroke="rgba(180,170,155,.55)"/>
+          </svg>
+          <svg class="finger" viewBox="0 0 60 200" aria-hidden="true">
+            <defs><linearGradient id="skin" x1="0" x2="1"><stop offset="0" stop-color="#E7AE84"/><stop offset=".5" stop-color="#F4CBA6"/><stop offset="1" stop-color="#DFA078"/></linearGradient></defs>
+            <path d="M14 0 H46 V170 C46 190 14 190 14 170Z" fill="url(#skin)"/>
+            <path d="M14 120 C24 116 36 116 46 120" stroke="#C98A63" stroke-width="1.2" fill="none" opacity=".6"/>
+            <path d="M14 60 C24 56 36 56 46 60" stroke="#C98A63" stroke-width="1.2" fill="none" opacity=".5"/>
+            <ellipse cx="30" cy="172" rx="10" ry="12" fill="#F9DCC6" stroke="#E2B193" stroke-width="1"/>
+            <ellipse cx="30" cy="183" rx="12" ry="5" fill="#FBEFCF" opacity=".9"/>
+          </svg>
+          <div class="sparks">
+            <span style="left:34%;top:20%;animation-delay:2.4s"></span><span style="left:66%;top:14%;animation-delay:2.7s"></span>
+            <span style="left:58%;top:34%;animation-delay:3s"></span><span style="left:40%;top:38%;animation-delay:3.3s"></span>
+          </div>
+          <div class="thermo"><i></i><span>Cera tibia</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="invite" id="invitacion">
+    <img class="wl sway-l" src="img/waves-left.webp" alt="" aria-hidden="true">
+    <img class="wr sway-r" src="img/waves-right.webp" alt="" aria-hidden="true">
+    <div class="wrap">
+      <p class="eyebrow" data-rv>Tu guía de aromas</p>
+      <h2 data-rv style="--dl:.08s">¿No sabes cuál elegir?</h2>
+      <p data-rv style="--dl:.16s">Cuéntale a Macondí dónde vas a encender tu vela, cómo te quieres sentir y qué olores te gustan. Puedes escribirle o hablarle.</p>
+      <div class="chips" id="inviteChips" data-rv style="--dl:.24s"></div>
+      <a class="btn btn-sun" href="#agente" data-go-agent data-rv style="--dl:.3s">Hablar con Macondí</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div><div class="big">MACONDÍ</div><small>Aromas de una tierra mágica</small></div>
+      <p>Velas aromáticas de doble uso inspiradas en las cinco regiones de Colombia. Hecho en Colombia.</p>
+    </div>
+  </footer>
+
+  <a class="btn btn-sun fab" href="#agente" data-go-agent id="fab">Encuentra tu vela</a>
+</div>
+
+<!-- ================= AGENTE ================= -->
+<div class="view" id="agentView" hidden>
+  <div class="bg" id="agentBg" aria-hidden="true">
+    <img class="l sway-l" src="img/waves-left.webp" alt="">
+    <img class="r sway-r" src="img/waves-right.webp" alt="">
+  </div>
+  <div class="a-top">
+    <div class="wrap">
+      <a class="back" href="#inicio" id="backBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Volver a la tienda
+      </a>
+      <a class="logo-sm" href="#inicio">MACONDÍ</a>
+    </div>
+  </div>
+  <main class="a-main">
+    <div class="wrap">
+      <div class="a-head">
+        <p class="eyebrow enter" style="--dl:.05s">Tu guía de aromas</p>
+        <h1 class="enter" style="--dl:.12s">Cuéntale a Macondí cómo quieres sentirte</h1>
+        <p class="enter" style="--dl:.2s">Escríbele o háblale. Considera tu espacio, tu piel, el momento del día y los olores que te gustan.</p>
+      </div>
+      <div class="studio">
+        <div class="panel chatbox enter" style="--dl:.3s">
+          <div class="chat-top">
+            <div class="who">
+              <div class="avatar"><img src="img/butterfly.webp" alt=""></div>
+              <div><b>Macondí</b><span class="status" id="status"><i></i><span id="statusText">Conectando…</span></span></div>
+            </div>
+            <div class="top-r">
+              <div class="tabs" role="tablist" aria-label="Modo del agente">
+                <button role="tab" id="tabChat" aria-selected="true" aria-controls="chatPane">Conversar</button>
+                <button role="tab" id="tabQuiz" aria-selected="false" aria-controls="quizPane">Test de aromas</button>
+              </div>
+              <button class="voicebtn" id="voiceBtn" type="button">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>Hablar
+              </button>
+            </div>
+          </div>
+          <div class="voice idle" id="voice" hidden>
+            <button class="back vclose" id="vClose" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Volver al chat
+            </button>
+            <button class="orb" id="orb" type="button" aria-label="Toca para hablar con Macondí">
+              <span class="ring"></span><span class="ring r2"></span>
+              <span class="core"><img src="img/butterfly.webp" alt=""></span>
+            </button>
+            <p class="vstate" id="vState">Toca la mariposa y cuéntame qué buscas</p>
+            <p class="vtext" id="vText"></p>
+            <p class="vreply" id="vReply"></p>
+            <div class="recs" id="vRecs"></div>
+          </div>
+          <div id="chatPane" style="display:contents">
+            <div class="log" id="log" aria-live="polite"></div>
+            <div class="chips" id="chips"></div>
+            <form class="composer" id="composer">
+              <label class="sr" for="input">Escribe tu mensaje</label>
+              <button type="button" class="iconbtn" id="mic" aria-label="Dictar por voz">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+              </button>
+              <textarea id="input" rows="1" placeholder="Ej: quiero algo fresco para un baño pequeño, tengo las manos resecas…"></textarea>
+              <button type="button" class="iconbtn" id="speak" aria-label="Leer respuestas en voz alta" aria-pressed="false">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+              </button>
+              <button type="submit" class="iconbtn send" id="send" aria-label="Enviar">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </button>
+            </form>
+          </div>
+          <div class="quiz" id="quizPane" hidden></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- ================= VEIL ================= -->
+<div id="veil" hidden aria-hidden="true">
+  <img class="vw l" src="img/waves-left.webp" alt="">
+  <img class="vw r" src="img/waves-right.webp" alt="">
+  <div class="mark"><div class="vbf"><img src="img/butterfly.webp" alt=""></div><b>MACONDÍ</b><span id="veilText">Tu guía de aromas</span></div>
+</div>
+
+<script>
+const REDUCE = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = s=>document.querySelector(s);
+const CANDLES = [
+  {id:"origen",name:"Origen",region:"Región Andina",notes:"Café & Vainilla",color:"#8A5634",tint:"#F0D2B0",fx:"54.2%",fy:"28.8%",
+   desc:"La calidez de nuestras montañas en un aroma que reconecta.",
+   kw:["cafe","vainilla","calid","acoged","frio","noche","leer","lectura","concentr","trabaj","estudi","manana","hogar","abrigo","dulce","calma","tranquil","relaj","lluvia","montana","andin","papa","abuel"]},
+  {id:"brisa",name:"Brisa",region:"Región Pacífica",notes:"Lulo & Hierbabuena",color:"#EE7A39",tint:"#FDDCBC",fx:"53%",fy:"30.9%",
+   desc:"La frescura vibrante del Pacífico en una mezcla cítrica y herbal.",
+   kw:["fresc","citric","herb","menta","hierbabuena","lulo","energ","despert","activ","cocina","limpi","verde","natural","pacific","ejercicio","yoga","productiv","oficina"]},
+  {id:"dorado",name:"Dorado",region:"Región Orinoquía",notes:"Maracuyá & Mango",color:"#D99A12",tint:"#FEEAB2",fx:"49.1%",fy:"31.2%",
+   desc:"La energía del llano en un aroma dulce y envolvente.",
+   kw:["maracuy","mango","tropical","alegr","fiesta","sala","compart","visita","reunion","envolvent","dulce","frutal","feliz","llano","orinoq","sol","verano","amig"]},
+  {id:"marea",name:"Marea",region:"Región Caribe",notes:"Coco & Limón",color:"#2F95C6",tint:"#D5E8EE",fx:"53.7%",fy:"29.7%",
+   desc:"La brisa del Caribe en una fragancia fresca y luminosa.",
+   kw:["coco","limon","playa","mar","caribe","fresc","luminos","lige","bano","ducha","vacacion","verano","calor","limpi","suave","pequen","apartamento","brisa"]},
+  {id:"selva",name:"Selva",region:"Región Amazonas",notes:"Açaí & Frutos Rojos",color:"#D2468A",tint:"#FCDCE2",fx:"51.8%",fy:"27.9%",
+   desc:"El misterio de la Amazonía en un aroma frutal y exótico.",
+   kw:["acai","frutos rojos","fresa","mora","frambuesa","misteri","exotic","romant","pareja","cita","intens","noche","sensual","habitacion","cuarto","dormitorio","amazon","selva","especial","diferente"]}
+];
+const byId = Object.fromEntries(CANDLES.map(c=>[c.id,c]));
+const esc = s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+
+/* ---------- Colombia map (departamentos, datos geográficos reales simplificados) ---------- */
+const MAP={"vb": "0 0 100 135.9", "all": "M23.1,31.9L23.9,32.3L24.0,33.5L22.5,35.8L21.4,39.6L22.8,42.1L26.9,41.8L28.4,39.2L29.6,39.2L29.8,38.4L30.8,38.0L31.8,36.7L33.9,36.5L34.9,35.4L37.3,37.7L37.8,39.3L37.0,40.1L36.7,41.5L37.5,42.4L38.5,41.1L38.7,41.8L38.2,42.4L38.2,43.5L38.6,44.9L39.6,45.0L42.0,42.8L42.4,45.0L40.1,47.1L38.3,48.3L38.0,48.7L38.4,49.8L36.8,51.3L36.6,52.2L36.9,53.1L36.6,53.3L36.7,53.8L36.3,54.1L36.2,54.9L35.8,54.9L35.4,55.5L34.6,55.1L33.5,55.3L32.7,55.8L32.3,56.7L31.3,57.3L30.8,57.2L30.4,55.7L30.1,55.4L29.5,55.7L28.8,55.1L28.7,56.8L27.4,56.7L26.4,57.2L25.2,57.0L24.5,55.7L24.3,54.5L24.5,53.1L23.6,52.8L23.5,51.4L19.9,51.6L19.3,50.4L19.4,49.1L18.4,48.3L18.7,47.9L18.3,47.9L18.4,47.6L17.8,47.4L18.1,47.2L17.8,46.4L19.2,45.9L18.9,44.8L20.0,44.7L21.2,45.1L21.6,43.8L21.3,42.9L19.8,41.8L19.2,40.3L17.7,39.9L16.4,38.3L17.3,37.6L17.9,36.3L17.6,34.7L18.0,35.5L17.9,36.0L18.7,35.7L18.3,36.1L18.7,36.1L18.6,36.6L18.0,36.6L18.1,37.4L19.1,37.5L19.6,37.1L19.4,33.9L18.9,32.8L18.0,32.4L18.5,31.8L20.0,31.4L22.0,29.8L23.1,31.9ZM41.4,62.6L41.3,63.9L41.5,64.0L40.5,65.8L40.4,67.5L38.0,71.7L37.5,71.6L38.5,69.9L38.3,68.7L38.5,68.3L39.5,68.1L39.6,67.4L40.0,64.8L39.8,63.9L40.8,62.4L41.4,62.6ZM55.9,44.7L57.7,45.1L57.6,45.7L56.3,49.1L55.8,49.6L55.1,49.6L55.1,50.1L54.2,51.0L54.1,51.6L54.7,52.5L54.3,53.8L53.8,54.3L54.9,54.8L55.6,55.7L55.2,55.9L55.0,57.2L54.2,56.6L51.9,59.1L51.0,58.2L49.8,59.3L49.7,60.0L50.2,60.8L49.2,61.3L48.8,62.7L49.0,63.2L48.6,63.8L47.6,63.6L47.5,63.3L46.9,63.3L46.4,62.7L46.2,62.1L45.1,61.9L45.5,60.2L45.1,58.9L44.1,57.4L43.0,57.0L43.1,56.3L41.2,58.1L40.5,57.4L39.3,57.0L38.8,56.0L39.2,55.6L38.8,54.4L37.9,55.0L37.6,54.8L36.2,54.9L36.3,54.1L36.7,53.8L36.6,53.3L36.9,53.1L36.6,52.0L37.2,50.9L37.9,52.5L38.5,52.7L39.3,52.5L39.6,54.2L40.0,53.9L41.3,54.6L41.6,55.1L42.3,55.3L43.5,54.8L44.3,55.2L44.6,53.4L45.5,52.2L46.4,53.2L45.6,54.2L46.2,55.0L46.5,54.3L47.2,54.1L47.7,53.1L49.5,53.1L51.3,51.1L51.5,49.5L50.9,48.6L51.2,48.4L51.6,48.7L52.1,49.6L53.1,49.2L53.4,47.8L53.4,45.8L54.2,46.1L55.1,45.0L55.4,45.2L55.9,44.7ZM36.0,54.9L36.4,55.6L36.1,57.5L35.6,58.6L33.1,58.8L32.3,59.8L31.0,59.9L30.7,60.3L30.8,62.1L30.3,62.5L29.4,61.7L28.2,61.3L28.0,61.6L27.6,61.5L27.3,60.7L26.9,61.3L27.1,61.6L26.3,61.6L26.0,60.0L26.5,60.0L26.7,58.8L27.7,58.9L28.2,58.3L27.7,57.9L26.4,58.0L26.5,57.1L26.9,56.8L28.7,56.8L28.6,55.1L29.5,55.7L30.1,55.4L30.4,55.7L30.9,57.3L32.3,56.7L32.7,55.8L33.5,55.3L34.6,55.1L35.4,55.5L36.0,54.9ZM39.0,54.9L39.2,55.6L38.8,56.0L39.3,57.0L40.5,57.4L41.2,58.1L43.1,56.3L43.0,57.0L44.1,57.4L45.1,58.9L45.5,60.2L45.1,61.9L46.2,62.1L46.4,62.7L47.7,63.7L48.6,63.8L49.0,63.3L48.4,67.4L46.3,66.7L45.2,66.9L44.8,65.4L43.8,64.9L42.9,65.9L43.4,67.5L39.8,69.0L40.4,67.5L40.5,65.8L41.4,64.5L41.3,63.8L41.4,62.6L40.8,62.4L39.8,63.9L40.0,64.8L39.5,68.1L38.3,68.6L38.5,69.9L37.5,71.6L37.5,70.9L37.1,70.5L37.6,68.1L37.2,67.2L36.7,66.9L35.8,67.4L35.0,66.7L34.3,66.8L35.0,65.0L34.8,63.2L35.3,62.8L35.4,61.4L35.7,61.2L35.5,58.8L36.1,57.5L36.4,55.6L36.2,54.9L37.9,55.0L38.8,54.4L39.0,54.9ZM36.5,74.8L35.8,76.1L34.8,76.5L33.0,78.9L33.5,80.1L32.0,81.2L31.7,80.7L31.2,82.0L29.9,83.5L28.9,85.3L27.7,86.0L26.7,87.7L25.4,88.8L24.5,89.1L24.1,88.7L23.3,88.9L22.9,88.3L21.9,88.0L21.8,86.6L20.6,85.9L20.6,84.1L21.1,83.9L22.3,84.4L22.7,83.8L22.3,82.8L23.0,82.5L23.1,81.8L23.5,81.8L24.5,81.9L25.3,81.1L26.2,81.7L26.8,81.4L25.7,78.7L25.6,77.2L26.4,77.2L26.9,76.6L27.3,76.7L28.1,76.0L28.8,75.9L28.8,75.2L30.4,73.9L31.3,74.1L31.5,73.8L31.9,74.1L33.0,73.5L33.3,74.1L32.8,74.7L34.0,74.8L35.3,73.6L35.1,72.9L36.8,71.2L37.0,70.5L37.6,71.0L36.7,73.2L36.5,74.8ZM49.5,27.8L49.9,28.3L50.7,28.0L51.1,28.3L52.1,32.2L54.2,34.3L54.3,36.9L53.5,37.7L53.8,38.2L53.4,39.2L53.5,41.0L53.9,41.8L56.0,42.1L55.9,42.9L56.9,44.8L55.9,44.7L55.4,45.2L55.1,45.0L54.2,46.1L52.9,45.8L52.7,45.1L51.9,45.1L50.3,44.5L50.7,43.6L50.3,43.0L50.7,42.4L50.4,42.0L49.2,40.0L47.5,40.1L46.9,40.8L45.3,40.2L44.4,39.2L46.1,39.3L46.7,38.5L46.6,37.9L47.2,37.4L47.0,36.9L46.3,36.6L46.1,35.9L46.6,33.6L46.1,33.5L46.2,34.2L45.8,34.4L45.4,33.9L45.7,33.1L45.1,32.6L45.2,31.7L45.8,31.4L46.1,30.6L46.2,27.9L47.7,27.7L49.2,26.7L49.5,27.8ZM28.2,63.4L29.6,63.6L30.2,63.3L30.6,63.8L29.1,64.9L27.9,67.8L27.4,67.8L27.1,67.1L26.4,64.0L27.6,63.9L27.6,63.3L28.2,63.4ZM26.5,57.1L26.4,58.1L27.7,57.9L28.2,58.3L27.7,58.9L26.7,58.8L26.5,60.0L26.0,60.0L26.3,61.6L27.1,61.6L26.9,61.3L27.3,60.7L27.8,61.6L28.2,61.3L29.4,61.7L30.3,62.5L30.0,63.4L26.6,63.2L26.5,62.8L25.9,62.9L26.0,62.1L25.6,62.1L24.9,61.2L24.2,61.2L23.6,60.7L22.8,58.7L24.7,57.4L26.5,57.1ZM43.2,36.0L44.0,37.6L43.4,39.1L44.5,39.2L45.3,40.2L46.9,40.8L47.5,40.1L49.4,40.1L50.7,42.4L50.3,43.0L50.7,43.6L50.3,44.5L51.9,45.1L52.7,45.1L52.9,45.8L53.4,45.8L53.4,47.8L53.1,49.1L52.1,49.6L51.6,48.7L51.2,48.4L50.9,48.6L51.5,49.5L51.2,51.2L49.2,53.3L47.9,53.2L46.2,55.0L45.6,54.2L46.4,53.2L46.1,52.6L45.3,52.2L44.6,53.4L44.3,55.3L43.5,54.8L42.4,55.3L41.6,55.2L40.5,54.1L40.0,53.9L39.6,54.2L39.3,52.5L38.5,52.7L37.9,52.5L37.2,50.9L38.4,49.8L38.0,48.7L38.3,48.3L40.1,47.1L42.4,45.0L41.9,42.7L42.1,41.1L42.7,40.2L43.0,38.9L42.5,36.4L43.2,36.0ZM34.9,58.7L35.5,58.9L35.7,61.2L35.4,61.4L35.3,62.8L34.8,63.2L35.0,65.0L34.3,66.8L35.0,66.7L35.8,67.4L36.7,66.9L37.2,67.2L37.6,68.0L37.2,69.3L37.4,69.8L36.8,71.2L35.1,72.9L35.3,73.6L34.0,74.8L32.8,74.7L33.3,74.1L33.0,73.5L31.9,74.1L31.5,73.8L31.3,74.1L30.9,73.8L28.9,75.1L28.8,75.9L28.1,76.0L27.3,76.7L26.9,76.6L26.4,77.2L25.6,77.2L25.0,76.7L24.8,76.0L25.6,71.9L26.5,69.8L26.9,69.5L27.5,69.5L27.9,69.0L27.8,67.9L29.1,64.9L30.6,63.8L30.2,63.3L30.3,62.5L30.8,62.1L30.7,60.3L31.0,59.9L32.3,59.8L33.1,58.8L34.9,58.7ZM34.6,18.0L34.3,18.8L31.5,16.8L31.5,14.6L33.5,13.2L34.7,12.2L35.7,13.8L35.6,16.4L34.6,18.0ZM32.3,17.5L34.3,18.8L34.0,19.9L34.7,20.1L35.2,20.7L34.5,21.6L35.0,22.8L34.8,23.3L35.4,24.1L35.1,25.4L36.2,25.7L37.3,27.1L37.9,26.9L38.2,27.3L39.0,27.4L39.0,27.7L39.5,27.7L40.4,28.8L41.2,28.7L42.6,29.2L43.1,30.6L42.9,31.9L43.4,33.4L43.4,35.0L43.1,35.9L42.5,36.4L43.0,38.9L42.7,40.2L42.1,41.1L42.0,42.8L39.6,45.0L38.6,44.9L38.2,42.5L38.7,41.8L38.5,41.1L37.8,42.3L37.5,42.4L36.9,41.8L36.7,41.3L37.2,39.9L37.8,39.3L37.3,37.7L34.9,35.3L36.6,34.4L37.1,33.5L36.6,31.3L37.0,30.7L36.9,30.2L36.0,29.0L34.9,28.3L34.3,27.2L34.2,25.6L33.6,24.8L31.8,23.5L31.0,23.4L30.5,23.8L30.9,22.0L29.8,21.8L29.8,20.9L29.4,20.5L29.5,19.9L28.9,20.1L29.5,19.6L29.4,19.0L28.0,19.9L28.8,18.5L29.4,18.5L29.0,17.7L29.5,17.0L29.7,17.3L29.4,16.3L31.3,15.1L31.4,14.6L31.5,16.8L32.3,17.5ZM47.3,14.0L47.4,15.0L47.9,14.9L48.9,15.8L47.9,17.1L48.2,17.8L48.8,17.4L49.7,17.7L50.9,17.5L50.1,18.8L50.1,19.8L49.5,21.3L49.4,21.9L49.9,22.4L47.3,26.0L46.7,27.5L46.2,27.9L46.1,30.6L45.8,31.4L45.2,31.8L45.2,32.9L45.7,33.1L45.4,33.9L45.8,34.4L46.2,34.2L46.1,33.5L46.6,33.6L46.1,35.6L46.4,36.1L46.3,36.6L47.0,36.9L47.2,37.4L46.6,37.9L46.7,38.5L46.1,39.3L43.4,39.1L44.0,37.6L43.1,35.9L43.4,33.5L42.9,31.9L43.1,30.6L42.5,29.6L43.0,28.5L42.3,27.4L41.7,27.3L41.6,26.1L40.3,25.0L41.2,24.2L43.1,24.2L42.7,22.7L40.7,20.3L41.1,19.2L42.1,18.0L43.6,17.6L44.6,16.7L44.5,15.6L44.8,14.9L44.1,14.6L45.6,13.9L47.3,14.0ZM27.0,25.5L28.0,25.6L28.0,26.2L29.4,27.0L29.9,26.9L30.2,27.8L30.8,27.8L31.2,28.4L31.6,28.4L31.9,30.0L30.4,30.3L30.9,30.9L31.1,33.0L31.9,33.0L32.1,33.8L32.5,33.8L33.3,33.1L34.4,33.3L35.2,34.0L35.3,35.2L34.1,36.3L31.9,36.6L30.9,37.8L29.8,38.4L29.6,39.2L28.4,39.2L27.1,41.5L26.3,42.0L22.8,42.1L21.5,39.7L22.5,35.8L24.0,33.5L23.9,32.3L22.8,31.7L22.0,29.8L23.3,28.9L24.7,26.3L26.0,25.6L27.0,25.5ZM60.6,1.4L63.0,2.4L63.9,4.7L62.1,6.2L62.2,6.5L57.8,7.6L55.6,11.7L54.8,11.6L53.6,12.1L50.9,17.5L49.7,17.7L48.8,17.4L48.2,17.8L47.9,17.1L48.9,15.7L47.9,14.9L47.4,15.0L47.3,14.0L45.3,14.1L44.5,14.2L44.2,13.3L44.2,11.8L44.7,10.8L46.7,10.8L51.5,7.3L54.8,6.2L55.3,5.8L56.1,4.1L55.8,3.2L57.4,3.0L57.3,3.7L57.6,3.7L58.2,3.4L57.5,2.7L58.2,2.1L58.5,1.9L58.5,2.5L59.2,1.8L59.5,2.0L59.9,1.7L59.3,1.4L60.6,1.4ZM40.9,10.2L42.7,10.8L44.7,10.8L44.2,11.8L44.1,13.0L44.5,14.2L44.9,14.1L44.1,14.7L44.8,14.9L44.5,15.6L44.6,16.7L43.6,17.6L41.9,18.1L40.7,20.3L42.7,22.7L43.1,24.2L41.2,24.2L40.3,25.0L41.6,26.1L41.7,27.3L42.3,27.4L42.9,28.8L42.6,29.2L41.2,28.7L40.4,28.8L39.2,27.7L37.9,26.9L37.3,27.1L36.2,25.7L35.1,25.4L35.4,24.1L34.8,23.3L35.0,22.8L34.5,21.6L35.2,20.7L34.0,19.7L35.7,16.3L35.7,13.8L34.8,12.2L37.3,13.1L39.0,13.0L39.5,12.5L39.4,11.2L40.0,10.4L40.9,10.2ZM29.7,21.8L30.9,22.0L30.6,23.9L30.7,23.5L31.6,23.4L33.6,24.8L34.2,25.6L34.3,27.2L34.9,28.3L36.2,29.1L37.0,30.4L36.6,31.3L37.1,33.5L36.2,34.6L35.4,34.9L35.1,33.8L33.9,33.2L33.3,33.1L32.5,33.8L32.1,33.8L31.9,33.0L31.0,32.9L30.9,30.9L30.4,30.3L31.9,30.0L31.6,28.4L31.2,28.4L30.8,27.8L30.2,27.8L29.9,26.9L29.4,27.0L28.0,26.2L28.0,25.6L28.4,25.5L29.0,24.2L28.7,23.4L28.0,23.2L29.3,20.9L28.9,20.2L29.5,19.9L29.7,21.8ZM36.1,81.0L36.6,84.7L37.7,86.5L39.8,86.9L40.5,87.7L41.7,88.4L44.3,88.1L44.4,89.1L46.0,90.8L46.1,91.7L48.4,93.8L49.4,93.7L50.5,93.0L50.4,92.1L50.9,91.7L51.5,92.0L52.2,91.8L53.7,92.6L54.4,93.9L54.7,93.8L54.8,94.5L55.2,94.3L55.0,94.8L55.6,95.1L55.7,95.6L56.5,95.4L56.8,96.0L57.5,96.0L58.1,97.6L58.9,98.1L58.7,98.5L59.3,98.4L59.5,98.9L59.8,98.7L60.2,99.6L60.6,99.5L60.4,99.8L61.0,99.6L60.8,99.9L61.2,99.9L61.2,100.3L61.7,99.9L58.9,103.4L57.2,103.3L57.0,103.9L56.1,104.6L55.3,106.3L54.7,106.4L54.0,105.7L52.9,106.9L51.4,105.7L50.0,106.2L49.2,105.5L48.8,106.2L47.8,106.3L46.5,105.4L44.8,105.4L44.6,104.8L44.2,104.9L43.6,104.3L42.8,104.6L41.4,104.1L40.9,103.6L39.1,103.0L39.2,102.5L38.0,102.4L37.8,102.0L37.4,102.4L37.2,102.1L37.1,102.3L36.0,101.9L36.1,100.8L35.7,100.7L35.9,100.0L35.6,99.6L33.4,99.0L33.6,97.9L33.3,97.4L31.7,97.3L31.3,95.3L29.3,94.9L28.5,94.2L27.3,94.5L25.9,93.2L26.0,92.9L24.7,92.7L24.2,92.1L23.9,92.2L24.0,91.6L23.4,91.7L23.1,90.6L24.1,88.8L24.5,89.1L25.4,88.8L26.7,87.7L27.5,86.2L28.9,85.3L29.9,83.5L31.2,82.0L31.7,80.7L32.0,81.2L33.5,80.1L32.9,79.0L34.1,77.5L36.7,78.8L36.8,79.7L36.1,81.0ZM21.0,90.5L21.1,92.7L23.0,93.4L25.6,92.6L27.3,94.5L28.5,94.2L29.3,94.9L31.3,95.3L31.7,97.3L33.3,97.4L33.6,97.9L33.4,99.0L35.6,99.6L35.9,100.0L35.7,100.7L36.1,100.8L36.0,101.9L37.1,102.3L37.2,102.1L37.4,102.4L37.8,102.0L38.0,102.4L39.2,102.5L39.1,103.0L40.0,103.5L40.4,103.3L42.5,104.5L38.3,105.8L38.1,105.3L37.2,105.1L36.6,104.2L35.7,104.0L34.8,102.5L34.4,103.0L31.9,101.4L31.2,102.1L30.1,101.8L28.5,100.5L27.8,100.8L26.8,100.5L25.3,98.6L24.4,98.5L24.1,98.0L22.8,97.7L22.6,98.0L22.0,98.0L22.0,99.0L20.7,99.4L20.1,98.9L19.1,98.8L19.3,99.2L16.9,98.7L16.3,96.0L17.4,95.7L16.7,91.5L18.7,90.6L19.3,90.6L20.0,89.6L20.7,90.0L21.0,90.5ZM62.5,100.1L63.1,100.7L64.0,100.6L64.3,101.1L65.9,101.7L66.3,102.3L65.9,102.6L66.8,104.2L67.5,103.7L68.9,104.4L69.4,104.3L69.9,105.2L71.0,105.2L70.7,105.0L71.2,104.7L71.9,105.0L71.1,105.9L71.5,106.1L71.3,107.5L71.7,108.4L71.2,109.1L71.4,109.5L72.0,109.2L71.8,109.8L72.3,110.2L72.9,109.7L72.5,109.2L73.0,109.0L73.2,109.1L73.4,108.8L74.3,109.2L73.9,110.1L75.0,109.6L75.4,110.2L75.7,110.1L75.4,109.6L76.0,109.8L76.3,111.2L76.9,110.7L77.7,111.1L77.7,110.1L78.1,110.0L78.3,112.0L74.0,135.1L72.4,133.3L71.8,132.0L70.6,131.7L69.6,132.4L67.9,131.8L73.0,123.5L72.8,122.6L72.2,123.1L72.3,122.7L72.1,122.4L71.8,122.7L71.6,121.9L70.8,121.9L71.1,121.4L70.0,121.5L69.8,121.1L69.1,120.8L69.0,121.3L68.6,121.2L68.6,120.7L68.3,120.6L68.2,120.2L66.7,119.2L66.1,119.4L65.5,119.0L65.6,119.7L64.9,119.5L64.5,120.2L63.7,120.1L63.4,120.4L63.2,120.1L62.5,120.5L62.0,119.6L61.6,119.5L61.7,120.1L61.4,119.3L59.8,119.1L59.8,118.7L59.7,118.5L58.9,118.9L58.6,119.7L58.1,119.9L58.2,120.3L57.1,120.0L56.4,121.1L55.7,120.8L54.7,121.3L54.4,120.8L52.4,120.5L52.1,121.2L51.7,120.6L51.6,121.0L51.3,120.7L50.1,121.3L49.9,120.3L49.2,120.2L49.0,120.5L48.1,119.4L49.0,118.3L48.7,118.2L48.7,116.7L48.3,116.1L47.7,115.5L47.5,116.0L47.0,115.8L46.9,116.1L45.2,115.3L45.7,114.1L44.8,112.8L45.0,112.6L44.5,111.7L43.4,111.1L43.1,111.5L42.5,111.2L42.1,110.4L41.3,110.2L41.1,109.5L40.7,109.9L39.2,109.2L38.8,108.5L39.3,108.5L39.4,108.0L38.4,107.2L38.6,106.8L38.3,105.8L43.6,104.3L44.2,104.9L44.6,104.8L44.8,105.4L46.5,105.4L47.8,106.3L48.8,106.2L49.0,105.5L49.4,105.5L50.0,106.2L51.4,105.7L53.0,106.9L54.0,105.7L54.7,106.4L55.3,106.3L56.1,104.6L57.0,103.9L57.2,103.3L58.9,103.4L59.5,102.3L61.6,100.2L62.2,99.8L62.5,100.1ZM92.1,70.1L92.5,71.2L93.5,71.3L94.2,73.4L94.9,73.9L95.0,74.5L94.5,75.4L94.2,75.4L90.7,79.0L91.4,78.8L92.8,79.2L93.0,80.2L93.6,80.2L95.9,82.6L95.8,83.7L96.5,84.6L96.4,85.5L98.5,90.8L98.6,91.9L96.9,92.2L96.8,90.1L96.1,88.0L94.0,84.6L93.5,84.4L92.9,84.9L91.1,87.2L90.2,87.6L89.0,86.9L88.5,86.0L87.7,85.7L87.1,86.8L88.1,87.8L78.3,87.5L77.0,87.2L75.0,87.7L73.6,87.4L72.1,86.3L72.1,85.6L72.7,85.2L72.6,84.4L73.6,83.3L73.2,83.0L72.2,83.4L71.2,83.3L71.1,83.6L70.4,83.2L69.6,83.4L69.5,83.1L68.6,82.9L67.8,81.4L67.5,81.0L66.9,81.0L66.7,80.7L69.7,78.8L70.8,78.5L71.4,77.7L71.2,77.1L71.6,77.0L71.1,76.7L71.9,75.7L72.2,76.0L72.3,75.5L72.6,75.7L72.4,75.1L72.7,74.9L72.2,74.5L73.3,74.0L73.7,74.3L74.1,74.1L73.9,73.6L74.6,74.0L74.3,72.9L75.1,73.7L74.9,72.9L75.2,73.3L75.8,72.6L76.0,73.0L76.3,72.7L76.7,72.8L76.8,71.9L77.6,72.0L77.9,71.6L78.4,72.0L79.3,71.7L79.2,72.2L79.5,72.1L79.4,71.6L79.7,71.9L80.2,71.8L80.2,72.2L80.7,71.9L81.1,72.2L82.1,71.9L82.1,71.4L83.0,72.0L82.8,71.5L83.3,71.6L83.5,71.1L85.1,71.2L85.1,70.9L85.5,71.1L86.1,70.4L86.5,70.5L86.2,70.0L86.8,70.0L86.9,69.4L87.9,69.7L87.8,69.4L88.6,69.5L88.6,69.8L89.0,69.6L89.0,69.8L89.3,69.3L90.4,70.1L91.9,69.1L92.1,70.1ZM63.5,78.3L64.8,78.2L65.1,78.8L65.9,78.6L66.0,79.0L66.1,78.4L66.5,78.9L66.7,78.7L66.6,79.0L67.7,79.0L67.9,79.3L68.4,78.9L68.3,78.5L68.7,78.9L68.8,78.6L69.6,79.0L66.7,80.7L66.9,81.0L67.5,81.0L68.6,82.9L69.5,83.1L69.6,83.4L70.4,83.2L71.1,83.6L71.2,83.3L72.2,83.4L73.2,83.0L73.6,83.6L72.6,84.4L72.7,84.7L71.9,85.2L70.1,85.4L68.2,86.0L66.4,86.0L66.0,86.6L63.5,88.0L62.5,87.5L61.1,91.2L61.5,92.4L61.1,92.0L60.7,92.9L60.1,93.5L59.5,93.4L59.1,94.3L57.2,95.9L56.8,96.0L56.5,95.4L55.7,95.6L55.6,95.1L55.0,94.8L55.2,94.3L54.8,94.5L54.7,93.8L54.4,93.9L53.8,92.7L52.2,91.8L50.5,91.8L50.5,92.9L48.8,93.9L46.1,91.7L46.0,90.8L44.4,89.1L44.4,82.3L45.2,82.1L45.8,82.5L45.9,82.1L46.4,82.6L46.5,82.3L46.6,82.5L47.5,82.3L47.4,82.1L47.8,81.9L48.2,82.2L49.5,81.6L49.9,81.9L49.7,81.4L50.1,81.4L49.8,81.1L50.4,80.6L51.1,80.3L51.6,80.6L51.8,80.2L52.1,80.6L52.3,80.2L52.9,80.3L52.6,79.9L55.4,78.8L56.0,79.2L55.8,78.4L56.4,78.1L57.6,78.8L59.3,78.5L59.3,78.1L60.2,78.5L61.8,78.2L62.4,78.5L63.0,78.0L63.5,78.3ZM72.7,85.1L72.1,85.6L72.2,86.4L73.6,87.4L74.8,87.7L74.8,92.7L75.7,92.5L77.9,92.9L79.0,92.8L79.7,93.2L80.2,94.5L80.0,95.5L80.4,96.3L78.5,96.4L77.4,95.6L76.6,96.3L76.2,96.1L75.1,96.7L73.2,97.1L73.0,102.3L74.2,104.0L76.6,105.4L76.9,106.5L76.5,107.3L78.1,110.0L77.7,110.1L77.7,111.1L76.9,110.7L76.3,111.2L76.0,109.8L75.4,109.6L75.7,110.1L75.4,110.2L75.0,109.6L73.9,110.1L74.3,109.2L73.4,108.8L73.2,109.1L73.0,109.0L72.5,109.2L72.9,109.7L72.3,110.2L71.8,109.8L72.0,109.2L71.4,109.5L71.2,109.1L71.7,108.4L71.3,107.5L71.5,106.1L71.1,105.9L71.9,105.0L71.2,104.7L70.7,105.0L71.0,105.2L69.9,105.2L69.4,104.3L68.9,104.4L67.5,103.7L66.7,104.1L65.9,102.6L66.3,102.3L65.9,101.7L64.3,101.1L64.0,100.6L63.1,100.7L62.3,99.8L61.2,100.3L61.2,99.9L60.8,99.9L61.0,99.6L60.4,99.8L60.6,99.5L60.2,99.6L59.8,98.7L59.5,98.9L59.3,98.4L58.7,98.5L58.9,98.1L58.1,97.6L57.9,96.7L57.9,96.9L57.6,96.8L57.6,96.2L57.3,95.9L59.1,94.3L59.5,93.4L60.1,93.5L60.7,92.9L61.1,92.0L61.5,92.4L61.1,91.2L62.5,87.5L63.5,88.0L66.0,86.6L66.4,86.0L69.2,85.9L72.6,84.7L72.7,85.1ZM7.9,77.2L7.5,77.1L7.8,76.6L8.1,76.6L7.9,77.2ZM22.5,74.7L24.8,75.3L24.9,76.5L25.6,77.2L25.7,78.7L26.8,81.3L26.2,81.7L25.3,81.1L24.5,81.9L23.1,81.8L23.0,82.5L22.3,82.8L22.6,84.1L22.1,84.4L21.0,83.9L20.5,84.3L20.7,86.1L21.2,86.1L21.8,86.6L21.9,88.0L22.9,88.3L23.3,88.9L24.2,88.8L23.1,90.8L23.4,91.7L24.0,91.6L23.9,92.2L24.2,92.1L24.8,92.9L23.0,93.4L20.9,92.6L20.9,90.1L20.0,89.6L19.3,90.6L18.7,90.6L19.1,88.6L18.6,88.1L17.2,87.3L15.6,87.7L14.7,87.5L15.7,85.5L15.2,84.1L14.7,84.3L14.4,83.3L12.6,83.5L11.6,83.0L9.4,79.7L9.7,79.7L9.8,79.3L9.9,79.6L10.0,79.0L10.6,79.5L10.7,78.8L11.4,78.5L11.0,78.5L12.0,77.8L11.6,77.8L12.1,76.9L11.6,77.0L11.9,76.4L12.4,76.4L12.1,76.3L13.5,75.0L14.1,74.9L14.6,75.6L15.2,75.5L15.6,76.2L17.6,76.2L18.0,76.5L21.2,76.2L21.7,75.1L21.4,74.6L22.5,74.7ZM17.4,34.7L17.9,36.3L17.3,37.6L16.4,38.3L17.7,39.9L19.2,40.3L19.8,41.8L21.3,42.9L21.6,43.8L21.2,45.1L20.0,44.7L18.9,44.8L19.2,45.9L17.8,46.4L18.1,47.2L17.9,47.5L18.4,47.6L18.3,47.9L18.7,47.9L18.4,48.3L19.4,49.1L19.3,50.4L19.9,51.6L23.5,51.4L23.6,52.8L24.5,53.1L24.3,54.5L24.5,55.7L25.5,57.2L22.8,58.7L23.6,60.7L24.2,61.3L23.7,62.3L22.3,63.3L21.3,65.5L20.9,65.7L21.2,67.0L21.9,67.7L19.8,68.9L19.2,69.0L18.6,68.6L16.1,67.5L15.5,67.6L15.2,67.0L15.0,67.5L13.8,67.4L13.1,67.7L13.2,67.3L13.7,67.2L13.1,67.2L13.3,66.5L13.3,66.9L14.0,67.0L13.9,66.2L14.7,64.8L14.7,62.8L15.1,63.1L14.5,62.4L14.3,61.3L14.3,59.2L14.0,59.2L14.1,58.5L14.3,58.6L13.9,57.7L14.2,57.3L13.8,56.9L13.0,56.8L13.2,56.1L14.4,56.0L15.4,54.6L14.6,52.4L14.3,52.6L13.6,51.1L13.7,50.5L14.1,50.8L14.3,50.6L14.2,49.8L14.7,49.7L14.9,48.7L14.3,47.4L13.8,47.3L13.4,47.7L13.0,46.6L11.9,46.1L12.2,45.1L10.3,42.9L10.9,41.2L11.9,40.8L11.7,39.6L12.3,39.7L13.0,40.8L14.6,38.5L15.9,37.7L15.4,35.4L13.9,33.0L14.5,31.7L17.4,34.7ZM9.7,80.4L11.6,83.0L12.6,83.5L14.4,83.3L14.7,84.3L15.2,84.1L15.7,85.5L15.0,86.4L14.8,87.6L16.6,87.6L17.3,87.3L19.1,88.6L18.7,89.6L18.8,90.5L16.7,91.5L17.4,95.7L16.3,96.0L16.7,98.2L14.0,98.2L13.4,97.1L13.4,96.4L12.0,95.4L11.9,94.3L10.3,94.7L9.4,94.6L7.2,92.9L6.4,92.6L5.4,91.6L4.5,91.4L1.0,88.2L2.2,86.4L4.7,86.6L4.5,85.0L3.8,84.6L3.9,83.8L4.6,83.8L4.7,83.2L4.4,83.2L4.2,82.4L4.7,81.1L5.9,80.3L6.6,81.3L6.7,80.3L6.9,80.6L7.8,79.6L8.1,79.6L8.4,80.5L9.3,79.6L9.7,80.4ZM24.9,61.2L25.6,62.1L26.0,62.1L26.0,62.9L27.6,63.3L27.6,63.9L26.4,64.2L27.2,67.4L27.4,67.8L27.8,67.8L27.9,68.8L27.5,69.5L26.6,69.7L26.0,70.7L24.8,75.3L21.7,74.5L21.1,76.2L18.0,76.5L17.6,76.2L15.6,76.2L14.1,74.9L13.1,74.8L14.6,73.7L14.5,73.0L15.0,72.4L16.1,71.7L16.1,70.4L16.5,70.5L17.0,69.6L14.9,70.0L15.1,69.8L14.7,69.4L15.5,69.1L15.5,68.5L15.3,68.2L14.8,68.4L14.4,69.4L13.8,68.7L13.8,68.0L14.3,67.4L15.0,67.5L15.2,67.0L15.5,67.6L16.0,67.5L16.8,68.1L17.7,68.0L19.2,69.0L20.9,68.5L21.9,67.6L21.2,67.0L20.9,65.7L21.3,65.5L22.7,62.8L23.7,62.3L24.2,61.2L24.9,61.2ZM65.0,65.4L64.8,78.2L63.5,78.3L63.0,78.0L62.4,78.5L61.8,78.2L60.2,78.5L59.3,78.1L59.3,78.5L57.6,78.8L56.4,78.1L55.8,78.4L56.0,79.2L55.4,78.8L52.6,79.9L52.9,80.3L52.3,80.2L52.1,80.6L51.8,80.2L51.6,80.6L51.1,80.3L50.4,80.6L49.8,81.1L50.1,81.4L49.7,81.4L49.9,81.9L49.5,81.6L48.2,82.2L47.8,81.9L47.4,82.1L47.5,82.3L46.6,82.5L46.5,82.3L46.4,82.6L45.9,82.1L45.8,82.5L44.8,82.1L44.4,82.3L44.3,88.1L41.7,88.4L40.5,87.7L39.8,86.9L37.7,86.5L36.7,85.0L36.5,83.6L36.0,80.8L36.8,79.7L36.8,78.9L34.2,77.4L34.8,76.5L35.8,76.1L36.5,74.8L36.7,73.2L37.5,71.6L38.1,71.6L39.7,69.1L43.5,67.4L42.9,66.0L43.6,65.1L43.9,64.9L44.8,65.4L45.2,66.9L46.3,66.7L48.4,67.4L49.0,63.6L51.8,67.0L53.1,66.4L54.4,66.5L55.5,65.8L56.8,65.8L57.1,66.2L57.7,66.0L59.1,64.7L64.9,62.1L65.0,65.4ZM68.0,44.4L68.9,44.5L69.2,44.9L70.8,45.6L72.4,45.3L78.1,52.4L77.9,52.7L76.6,53.0L74.4,52.8L73.9,52.1L73.2,52.1L72.2,50.9L66.4,51.4L63.8,50.9L60.7,51.6L59.8,51.4L56.4,52.6L54.2,51.1L55.1,50.1L55.1,49.6L55.8,49.6L56.3,49.1L57.7,45.0L59.6,44.6L60.0,44.9L60.2,44.6L61.7,45.0L64.3,44.9L64.9,45.3L66.6,44.5L68.0,44.4ZM72.2,50.9L73.2,52.1L73.9,52.1L74.3,52.8L74.8,52.9L73.2,55.7L71.7,56.6L69.6,57.2L68.1,58.4L67.7,59.3L65.9,60.4L64.9,62.1L59.1,64.7L57.7,66.0L57.1,66.2L56.8,65.8L55.5,65.8L54.4,66.5L53.1,66.4L52.8,66.8L51.5,66.8L49.0,63.6L48.8,62.7L49.1,61.6L50.2,60.8L49.8,59.8L49.8,59.3L50.9,58.2L51.9,59.1L54.1,56.6L55.0,57.2L55.2,55.9L55.6,55.7L54.9,54.8L53.8,54.3L54.3,53.8L54.7,52.5L54.1,51.6L54.2,51.1L55.1,51.5L55.4,52.2L56.4,52.6L59.8,51.4L61.4,51.6L63.8,50.9L66.4,51.4L72.2,50.9ZM91.2,50.7L92.9,50.9L93.6,51.4L93.4,51.9L93.9,53.0L92.6,54.5L92.4,57.1L90.8,58.3L90.5,59.0L90.9,60.8L90.3,64.6L90.9,65.6L91.1,67.5L91.9,69.1L90.4,70.1L89.3,69.3L89.0,69.8L89.0,69.6L88.6,69.8L88.6,69.5L87.8,69.4L87.9,69.7L86.9,69.4L86.8,70.0L86.2,70.0L86.5,70.5L86.1,70.4L85.5,71.1L85.1,70.9L85.1,71.2L83.5,71.1L83.3,71.6L82.8,71.5L83.0,72.0L82.1,71.4L82.1,71.9L81.1,72.2L80.7,71.9L80.2,72.2L80.2,71.8L79.7,71.9L79.4,71.6L79.5,72.1L79.2,72.2L79.3,71.7L78.4,72.0L77.9,71.6L77.6,72.0L76.8,71.9L76.8,72.7L76.3,72.7L76.0,73.0L75.8,72.6L75.8,72.9L75.3,72.9L75.2,73.3L74.8,73.0L75.1,73.7L74.3,72.9L74.6,74.0L73.9,73.6L74.1,74.1L73.7,74.3L73.3,74.0L72.2,74.5L72.7,74.9L72.4,75.1L72.6,75.7L72.3,75.5L72.2,76.0L71.9,75.7L71.1,76.7L71.6,77.0L71.2,77.1L71.4,77.7L70.8,78.5L69.5,79.0L68.8,78.6L68.7,78.9L68.3,78.5L68.4,78.9L67.9,79.3L67.7,79.0L66.6,79.0L66.7,78.7L66.5,78.9L66.1,78.4L66.0,79.0L65.9,78.6L65.1,78.8L64.8,78.2L64.9,62.0L65.8,60.4L67.7,59.3L68.1,58.4L69.6,57.2L71.7,56.6L73.2,55.7L74.8,52.9L76.6,53.0L77.8,52.8L78.7,52.1L79.0,52.5L79.6,52.4L80.5,51.4L85.2,52.1L88.6,51.3L89.6,51.5L91.2,50.7Z", "reg": {"origen": "M23.1,31.9L23.9,32.3L24.0,33.5L22.5,35.8L21.4,39.6L22.8,42.1L26.9,41.8L28.4,39.2L29.6,39.2L29.8,38.4L30.8,38.0L31.8,36.7L33.9,36.5L34.9,35.4L37.3,37.7L37.8,39.3L37.0,40.1L36.7,41.5L37.5,42.4L38.5,41.1L38.7,41.8L38.2,42.4L38.2,43.5L38.6,44.9L39.6,45.0L42.0,42.8L42.4,45.0L40.1,47.1L38.3,48.3L38.0,48.7L38.4,49.8L36.8,51.3L36.6,52.2L36.9,53.1L36.6,53.3L36.7,53.8L36.3,54.1L36.2,54.9L35.8,54.9L35.4,55.5L34.6,55.1L33.5,55.3L32.7,55.8L32.3,56.7L31.3,57.3L30.8,57.2L30.4,55.7L30.1,55.4L29.5,55.7L28.8,55.1L28.7,56.8L27.4,56.7L26.4,57.2L25.2,57.0L24.5,55.7L24.3,54.5L24.5,53.1L23.6,52.8L23.5,51.4L19.9,51.6L19.3,50.4L19.4,49.1L18.4,48.3L18.7,47.9L18.3,47.9L18.4,47.6L17.8,47.4L18.1,47.2L17.8,46.4L19.2,45.9L18.9,44.8L20.0,44.7L21.2,45.1L21.6,43.8L21.3,42.9L19.8,41.8L19.2,40.3L17.7,39.9L16.4,38.3L17.3,37.6L17.9,36.3L17.6,34.7L18.0,35.5L17.9,36.0L18.7,35.7L18.3,36.1L18.7,36.1L18.6,36.6L18.0,36.6L18.1,37.4L19.1,37.5L19.6,37.1L19.4,33.9L18.9,32.8L18.0,32.4L18.5,31.8L20.0,31.4L22.0,29.8L23.1,31.9ZM41.4,62.6L41.3,63.9L41.5,64.0L40.5,65.8L40.4,67.5L38.0,71.7L37.5,71.6L38.5,69.9L38.3,68.7L38.5,68.3L39.5,68.1L39.6,67.4L40.0,64.8L39.8,63.9L40.8,62.4L41.4,62.6ZM55.9,44.7L57.7,45.1L57.6,45.7L56.3,49.1L55.8,49.6L55.1,49.6L55.1,50.1L54.2,51.0L54.1,51.6L54.7,52.5L54.3,53.8L53.8,54.3L54.9,54.8L55.6,55.7L55.2,55.9L55.0,57.2L54.2,56.6L51.9,59.1L51.0,58.2L49.8,59.3L49.7,60.0L50.2,60.8L49.2,61.3L48.8,62.7L49.0,63.2L48.6,63.8L47.6,63.6L47.5,63.3L46.9,63.3L46.4,62.7L46.2,62.1L45.1,61.9L45.5,60.2L45.1,58.9L44.1,57.4L43.0,57.0L43.1,56.3L41.2,58.1L40.5,57.4L39.3,57.0L38.8,56.0L39.2,55.6L38.8,54.4L37.9,55.0L37.6,54.8L36.2,54.9L36.3,54.1L36.7,53.8L36.6,53.3L36.9,53.1L36.6,52.0L37.2,50.9L37.9,52.5L38.5,52.7L39.3,52.5L39.6,54.2L40.0,53.9L41.3,54.6L41.6,55.1L42.3,55.3L43.5,54.8L44.3,55.2L44.6,53.4L45.5,52.2L46.4,53.2L45.6,54.2L46.2,55.0L46.5,54.3L47.2,54.1L47.7,53.1L49.5,53.1L51.3,51.1L51.5,49.5L50.9,48.6L51.2,48.4L51.6,48.7L52.1,49.6L53.1,49.2L53.4,47.8L53.4,45.8L54.2,46.1L55.1,45.0L55.4,45.2L55.9,44.7ZM36.0,54.9L36.4,55.6L36.1,57.5L35.6,58.6L33.1,58.8L32.3,59.8L31.0,59.9L30.7,60.3L30.8,62.1L30.3,62.5L29.4,61.7L28.2,61.3L28.0,61.6L27.6,61.5L27.3,60.7L26.9,61.3L27.1,61.6L26.3,61.6L26.0,60.0L26.5,60.0L26.7,58.8L27.7,58.9L28.2,58.3L27.7,57.9L26.4,58.0L26.5,57.1L26.9,56.8L28.7,56.8L28.6,55.1L29.5,55.7L30.1,55.4L30.4,55.7L30.9,57.3L32.3,56.7L32.7,55.8L33.5,55.3L34.6,55.1L35.4,55.5L36.0,54.9ZM39.0,54.9L39.2,55.6L38.8,56.0L39.3,57.0L40.5,57.4L41.2,58.1L43.1,56.3L43.0,57.0L44.1,57.4L45.1,58.9L45.5,60.2L45.1,61.9L46.2,62.1L46.4,62.7L47.7,63.7L48.6,63.8L49.0,63.3L48.4,67.4L46.3,66.7L45.2,66.9L44.8,65.4L43.8,64.9L42.9,65.9L43.4,67.5L39.8,69.0L40.4,67.5L40.5,65.8L41.4,64.5L41.3,63.8L41.4,62.6L40.8,62.4L39.8,63.9L40.0,64.8L39.5,68.1L38.3,68.6L38.5,69.9L37.5,71.6L37.5,70.9L37.1,70.5L37.6,68.1L37.2,67.2L36.7,66.9L35.8,67.4L35.0,66.7L34.3,66.8L35.0,65.0L34.8,63.2L35.3,62.8L35.4,61.4L35.7,61.2L35.5,58.8L36.1,57.5L36.4,55.6L36.2,54.9L37.9,55.0L38.8,54.4L39.0,54.9ZM36.5,74.8L35.8,76.1L34.8,76.5L33.0,78.9L33.5,80.1L32.0,81.2L31.7,80.7L31.2,82.0L29.9,83.5L28.9,85.3L27.7,86.0L26.7,87.7L25.4,88.8L24.5,89.1L24.1,88.7L23.3,88.9L22.9,88.3L21.9,88.0L21.8,86.6L20.6,85.9L20.6,84.1L21.1,83.9L22.3,84.4L22.7,83.8L22.3,82.8L23.0,82.5L23.1,81.8L23.5,81.8L24.5,81.9L25.3,81.1L26.2,81.7L26.8,81.4L25.7,78.7L25.6,77.2L26.4,77.2L26.9,76.6L27.3,76.7L28.1,76.0L28.8,75.9L28.8,75.2L30.4,73.9L31.3,74.1L31.5,73.8L31.9,74.1L33.0,73.5L33.3,74.1L32.8,74.7L34.0,74.8L35.3,73.6L35.1,72.9L36.8,71.2L37.0,70.5L37.6,71.0L36.7,73.2L36.5,74.8ZM49.5,27.8L49.9,28.3L50.7,28.0L51.1,28.3L52.1,32.2L54.2,34.3L54.3,36.9L53.5,37.7L53.8,38.2L53.4,39.2L53.5,41.0L53.9,41.8L56.0,42.1L55.9,42.9L56.9,44.8L55.9,44.7L55.4,45.2L55.1,45.0L54.2,46.1L52.9,45.8L52.7,45.1L51.9,45.1L50.3,44.5L50.7,43.6L50.3,43.0L50.7,42.4L50.4,42.0L49.2,40.0L47.5,40.1L46.9,40.8L45.3,40.2L44.4,39.2L46.1,39.3L46.7,38.5L46.6,37.9L47.2,37.4L47.0,36.9L46.3,36.6L46.1,35.9L46.6,33.6L46.1,33.5L46.2,34.2L45.8,34.4L45.4,33.9L45.7,33.1L45.1,32.6L45.2,31.7L45.8,31.4L46.1,30.6L46.2,27.9L47.7,27.7L49.2,26.7L49.5,27.8ZM28.2,63.4L29.6,63.6L30.2,63.3L30.6,63.8L29.1,64.9L27.9,67.8L27.4,67.8L27.1,67.1L26.4,64.0L27.6,63.9L27.6,63.3L28.2,63.4ZM26.5,57.1L26.4,58.1L27.7,57.9L28.2,58.3L27.7,58.9L26.7,58.8L26.5,60.0L26.0,60.0L26.3,61.6L27.1,61.6L26.9,61.3L27.3,60.7L27.8,61.6L28.2,61.3L29.4,61.7L30.3,62.5L30.0,63.4L26.6,63.2L26.5,62.8L25.9,62.9L26.0,62.1L25.6,62.1L24.9,61.2L24.2,61.2L23.6,60.7L22.8,58.7L24.7,57.4L26.5,57.1ZM43.2,36.0L44.0,37.6L43.4,39.1L44.5,39.2L45.3,40.2L46.9,40.8L47.5,40.1L49.4,40.1L50.7,42.4L50.3,43.0L50.7,43.6L50.3,44.5L51.9,45.1L52.7,45.1L52.9,45.8L53.4,45.8L53.4,47.8L53.1,49.1L52.1,49.6L51.6,48.7L51.2,48.4L50.9,48.6L51.5,49.5L51.2,51.2L49.2,53.3L47.9,53.2L46.2,55.0L45.6,54.2L46.4,53.2L46.1,52.6L45.3,52.2L44.6,53.4L44.3,55.3L43.5,54.8L42.4,55.3L41.6,55.2L40.5,54.1L40.0,53.9L39.6,54.2L39.3,52.5L38.5,52.7L37.9,52.5L37.2,50.9L38.4,49.8L38.0,48.7L38.3,48.3L40.1,47.1L42.4,45.0L41.9,42.7L42.1,41.1L42.7,40.2L43.0,38.9L42.5,36.4L43.2,36.0ZM34.9,58.7L35.5,58.9L35.7,61.2L35.4,61.4L35.3,62.8L34.8,63.2L35.0,65.0L34.3,66.8L35.0,66.7L35.8,67.4L36.7,66.9L37.2,67.2L37.6,68.0L37.2,69.3L37.4,69.8L36.8,71.2L35.1,72.9L35.3,73.6L34.0,74.8L32.8,74.7L33.3,74.1L33.0,73.5L31.9,74.1L31.5,73.8L31.3,74.1L30.9,73.8L28.9,75.1L28.8,75.9L28.1,76.0L27.3,76.7L26.9,76.6L26.4,77.2L25.6,77.2L25.0,76.7L24.8,76.0L25.6,71.9L26.5,69.8L26.9,69.5L27.5,69.5L27.9,69.0L27.8,67.9L29.1,64.9L30.6,63.8L30.2,63.3L30.3,62.5L30.8,62.1L30.7,60.3L31.0,59.9L32.3,59.8L33.1,58.8L34.9,58.7Z", "marea": "M34.6,18.0L34.3,18.8L31.5,16.8L31.5,14.6L33.5,13.2L34.7,12.2L35.7,13.8L35.6,16.4L34.6,18.0ZM32.3,17.5L34.3,18.8L34.0,19.9L34.7,20.1L35.2,20.7L34.5,21.6L35.0,22.8L34.8,23.3L35.4,24.1L35.1,25.4L36.2,25.7L37.3,27.1L37.9,26.9L38.2,27.3L39.0,27.4L39.0,27.7L39.5,27.7L40.4,28.8L41.2,28.7L42.6,29.2L43.1,30.6L42.9,31.9L43.4,33.4L43.4,35.0L43.1,35.9L42.5,36.4L43.0,38.9L42.7,40.2L42.1,41.1L42.0,42.8L39.6,45.0L38.6,44.9L38.2,42.5L38.7,41.8L38.5,41.1L37.8,42.3L37.5,42.4L36.9,41.8L36.7,41.3L37.2,39.9L37.8,39.3L37.3,37.7L34.9,35.3L36.6,34.4L37.1,33.5L36.6,31.3L37.0,30.7L36.9,30.2L36.0,29.0L34.9,28.3L34.3,27.2L34.2,25.6L33.6,24.8L31.8,23.5L31.0,23.4L30.5,23.8L30.9,22.0L29.8,21.8L29.8,20.9L29.4,20.5L29.5,19.9L28.9,20.1L29.5,19.6L29.4,19.0L28.0,19.9L28.8,18.5L29.4,18.5L29.0,17.7L29.5,17.0L29.7,17.3L29.4,16.3L31.3,15.1L31.4,14.6L31.5,16.8L32.3,17.5ZM47.3,14.0L47.4,15.0L47.9,14.9L48.9,15.8L47.9,17.1L48.2,17.8L48.8,17.4L49.7,17.7L50.9,17.5L50.1,18.8L50.1,19.8L49.5,21.3L49.4,21.9L49.9,22.4L47.3,26.0L46.7,27.5L46.2,27.9L46.1,30.6L45.8,31.4L45.2,31.8L45.2,32.9L45.7,33.1L45.4,33.9L45.8,34.4L46.2,34.2L46.1,33.5L46.6,33.6L46.1,35.6L46.4,36.1L46.3,36.6L47.0,36.9L47.2,37.4L46.6,37.9L46.7,38.5L46.1,39.3L43.4,39.1L44.0,37.6L43.1,35.9L43.4,33.5L42.9,31.9L43.1,30.6L42.5,29.6L43.0,28.5L42.3,27.4L41.7,27.3L41.6,26.1L40.3,25.0L41.2,24.2L43.1,24.2L42.7,22.7L40.7,20.3L41.1,19.2L42.1,18.0L43.6,17.6L44.6,16.7L44.5,15.6L44.8,14.9L44.1,14.6L45.6,13.9L47.3,14.0ZM27.0,25.5L28.0,25.6L28.0,26.2L29.4,27.0L29.9,26.9L30.2,27.8L30.8,27.8L31.2,28.4L31.6,28.4L31.9,30.0L30.4,30.3L30.9,30.9L31.1,33.0L31.9,33.0L32.1,33.8L32.5,33.8L33.3,33.1L34.4,33.3L35.2,34.0L35.3,35.2L34.1,36.3L31.9,36.6L30.9,37.8L29.8,38.4L29.6,39.2L28.4,39.2L27.1,41.5L26.3,42.0L22.8,42.1L21.5,39.7L22.5,35.8L24.0,33.5L23.9,32.3L22.8,31.7L22.0,29.8L23.3,28.9L24.7,26.3L26.0,25.6L27.0,25.5ZM60.6,1.4L63.0,2.4L63.9,4.7L62.1,6.2L62.2,6.5L57.8,7.6L55.6,11.7L54.8,11.6L53.6,12.1L50.9,17.5L49.7,17.7L48.8,17.4L48.2,17.8L47.9,17.1L48.9,15.7L47.9,14.9L47.4,15.0L47.3,14.0L45.3,14.1L44.5,14.2L44.2,13.3L44.2,11.8L44.7,10.8L46.7,10.8L51.5,7.3L54.8,6.2L55.3,5.8L56.1,4.1L55.8,3.2L57.4,3.0L57.3,3.7L57.6,3.7L58.2,3.4L57.5,2.7L58.2,2.1L58.5,1.9L58.5,2.5L59.2,1.8L59.5,2.0L59.9,1.7L59.3,1.4L60.6,1.4ZM40.9,10.2L42.7,10.8L44.7,10.8L44.2,11.8L44.1,13.0L44.5,14.2L44.9,14.1L44.1,14.7L44.8,14.9L44.5,15.6L44.6,16.7L43.6,17.6L41.9,18.1L40.7,20.3L42.7,22.7L43.1,24.2L41.2,24.2L40.3,25.0L41.6,26.1L41.7,27.3L42.3,27.4L42.9,28.8L42.6,29.2L41.2,28.7L40.4,28.8L39.2,27.7L37.9,26.9L37.3,27.1L36.2,25.7L35.1,25.4L35.4,24.1L34.8,23.3L35.0,22.8L34.5,21.6L35.2,20.7L34.0,19.7L35.7,16.3L35.7,13.8L34.8,12.2L37.3,13.1L39.0,13.0L39.5,12.5L39.4,11.2L40.0,10.4L40.9,10.2ZM29.7,21.8L30.9,22.0L30.6,23.9L30.7,23.5L31.6,23.4L33.6,24.8L34.2,25.6L34.3,27.2L34.9,28.3L36.2,29.1L37.0,30.4L36.6,31.3L37.1,33.5L36.2,34.6L35.4,34.9L35.1,33.8L33.9,33.2L33.3,33.1L32.5,33.8L32.1,33.8L31.9,33.0L31.0,32.9L30.9,30.9L30.4,30.3L31.9,30.0L31.6,28.4L31.2,28.4L30.8,27.8L30.2,27.8L29.9,26.9L29.4,27.0L28.0,26.2L28.0,25.6L28.4,25.5L29.0,24.2L28.7,23.4L28.0,23.2L29.3,20.9L28.9,20.2L29.5,19.9L29.7,21.8Z", "selva": "M36.1,81.0L36.6,84.7L37.7,86.5L39.8,86.9L40.5,87.7L41.7,88.4L44.3,88.1L44.4,89.1L46.0,90.8L46.1,91.7L48.4,93.8L49.4,93.7L50.5,93.0L50.4,92.1L50.9,91.7L51.5,92.0L52.2,91.8L53.7,92.6L54.4,93.9L54.7,93.8L54.8,94.5L55.2,94.3L55.0,94.8L55.6,95.1L55.7,95.6L56.5,95.4L56.8,96.0L57.5,96.0L58.1,97.6L58.9,98.1L58.7,98.5L59.3,98.4L59.5,98.9L59.8,98.7L60.2,99.6L60.6,99.5L60.4,99.8L61.0,99.6L60.8,99.9L61.2,99.9L61.2,100.3L61.7,99.9L58.9,103.4L57.2,103.3L57.0,103.9L56.1,104.6L55.3,106.3L54.7,106.4L54.0,105.7L52.9,106.9L51.4,105.7L50.0,106.2L49.2,105.5L48.8,106.2L47.8,106.3L46.5,105.4L44.8,105.4L44.6,104.8L44.2,104.9L43.6,104.3L42.8,104.6L41.4,104.1L40.9,103.6L39.1,103.0L39.2,102.5L38.0,102.4L37.8,102.0L37.4,102.4L37.2,102.1L37.1,102.3L36.0,101.9L36.1,100.8L35.7,100.7L35.9,100.0L35.6,99.6L33.4,99.0L33.6,97.9L33.3,97.4L31.7,97.3L31.3,95.3L29.3,94.9L28.5,94.2L27.3,94.5L25.9,93.2L26.0,92.9L24.7,92.7L24.2,92.1L23.9,92.2L24.0,91.6L23.4,91.7L23.1,90.6L24.1,88.8L24.5,89.1L25.4,88.8L26.7,87.7L27.5,86.2L28.9,85.3L29.9,83.5L31.2,82.0L31.7,80.7L32.0,81.2L33.5,80.1L32.9,79.0L34.1,77.5L36.7,78.8L36.8,79.7L36.1,81.0ZM21.0,90.5L21.1,92.7L23.0,93.4L25.6,92.6L27.3,94.5L28.5,94.2L29.3,94.9L31.3,95.3L31.7,97.3L33.3,97.4L33.6,97.9L33.4,99.0L35.6,99.6L35.9,100.0L35.7,100.7L36.1,100.8L36.0,101.9L37.1,102.3L37.2,102.1L37.4,102.4L37.8,102.0L38.0,102.4L39.2,102.5L39.1,103.0L40.0,103.5L40.4,103.3L42.5,104.5L38.3,105.8L38.1,105.3L37.2,105.1L36.6,104.2L35.7,104.0L34.8,102.5L34.4,103.0L31.9,101.4L31.2,102.1L30.1,101.8L28.5,100.5L27.8,100.8L26.8,100.5L25.3,98.6L24.4,98.5L24.1,98.0L22.8,97.7L22.6,98.0L22.0,98.0L22.0,99.0L20.7,99.4L20.1,98.9L19.1,98.8L19.3,99.2L16.9,98.7L16.3,96.0L17.4,95.7L16.7,91.5L18.7,90.6L19.3,90.6L20.0,89.6L20.7,90.0L21.0,90.5ZM62.5,100.1L63.1,100.7L64.0,100.6L64.3,101.1L65.9,101.7L66.3,102.3L65.9,102.6L66.8,104.2L67.5,103.7L68.9,104.4L69.4,104.3L69.9,105.2L71.0,105.2L70.7,105.0L71.2,104.7L71.9,105.0L71.1,105.9L71.5,106.1L71.3,107.5L71.7,108.4L71.2,109.1L71.4,109.5L72.0,109.2L71.8,109.8L72.3,110.2L72.9,109.7L72.5,109.2L73.0,109.0L73.2,109.1L73.4,108.8L74.3,109.2L73.9,110.1L75.0,109.6L75.4,110.2L75.7,110.1L75.4,109.6L76.0,109.8L76.3,111.2L76.9,110.7L77.7,111.1L77.7,110.1L78.1,110.0L78.3,112.0L74.0,135.1L72.4,133.3L71.8,132.0L70.6,131.7L69.6,132.4L67.9,131.8L73.0,123.5L72.8,122.6L72.2,123.1L72.3,122.7L72.1,122.4L71.8,122.7L71.6,121.9L70.8,121.9L71.1,121.4L70.0,121.5L69.8,121.1L69.1,120.8L69.0,121.3L68.6,121.2L68.6,120.7L68.3,120.6L68.2,120.2L66.7,119.2L66.1,119.4L65.5,119.0L65.6,119.7L64.9,119.5L64.5,120.2L63.7,120.1L63.4,120.4L63.2,120.1L62.5,120.5L62.0,119.6L61.6,119.5L61.7,120.1L61.4,119.3L59.8,119.1L59.8,118.7L59.7,118.5L58.9,118.9L58.6,119.7L58.1,119.9L58.2,120.3L57.1,120.0L56.4,121.1L55.7,120.8L54.7,121.3L54.4,120.8L52.4,120.5L52.1,121.2L51.7,120.6L51.6,121.0L51.3,120.7L50.1,121.3L49.9,120.3L49.2,120.2L49.0,120.5L48.1,119.4L49.0,118.3L48.7,118.2L48.7,116.7L48.3,116.1L47.7,115.5L47.5,116.0L47.0,115.8L46.9,116.1L45.2,115.3L45.7,114.1L44.8,112.8L45.0,112.6L44.5,111.7L43.4,111.1L43.1,111.5L42.5,111.2L42.1,110.4L41.3,110.2L41.1,109.5L40.7,109.9L39.2,109.2L38.8,108.5L39.3,108.5L39.4,108.0L38.4,107.2L38.6,106.8L38.3,105.8L43.6,104.3L44.2,104.9L44.6,104.8L44.8,105.4L46.5,105.4L47.8,106.3L48.8,106.2L49.0,105.5L49.4,105.5L50.0,106.2L51.4,105.7L53.0,106.9L54.0,105.7L54.7,106.4L55.3,106.3L56.1,104.6L57.0,103.9L57.2,103.3L58.9,103.4L59.5,102.3L61.6,100.2L62.2,99.8L62.5,100.1ZM92.1,70.1L92.5,71.2L93.5,71.3L94.2,73.4L94.9,73.9L95.0,74.5L94.5,75.4L94.2,75.4L90.7,79.0L91.4,78.8L92.8,79.2L93.0,80.2L93.6,80.2L95.9,82.6L95.8,83.7L96.5,84.6L96.4,85.5L98.5,90.8L98.6,91.9L96.9,92.2L96.8,90.1L96.1,88.0L94.0,84.6L93.5,84.4L92.9,84.9L91.1,87.2L90.2,87.6L89.0,86.9L88.5,86.0L87.7,85.7L87.1,86.8L88.1,87.8L78.3,87.5L77.0,87.2L75.0,87.7L73.6,87.4L72.1,86.3L72.1,85.6L72.7,85.2L72.6,84.4L73.6,83.3L73.2,83.0L72.2,83.4L71.2,83.3L71.1,83.6L70.4,83.2L69.6,83.4L69.5,83.1L68.6,82.9L67.8,81.4L67.5,81.0L66.9,81.0L66.7,80.7L69.7,78.8L70.8,78.5L71.4,77.7L71.2,77.1L71.6,77.0L71.1,76.7L71.9,75.7L72.2,76.0L72.3,75.5L72.6,75.7L72.4,75.1L72.7,74.9L72.2,74.5L73.3,74.0L73.7,74.3L74.1,74.1L73.9,73.6L74.6,74.0L74.3,72.9L75.1,73.7L74.9,72.9L75.2,73.3L75.8,72.6L76.0,73.0L76.3,72.7L76.7,72.8L76.8,71.9L77.6,72.0L77.9,71.6L78.4,72.0L79.3,71.7L79.2,72.2L79.5,72.1L79.4,71.6L79.7,71.9L80.2,71.8L80.2,72.2L80.7,71.9L81.1,72.2L82.1,71.9L82.1,71.4L83.0,72.0L82.8,71.5L83.3,71.6L83.5,71.1L85.1,71.2L85.1,70.9L85.5,71.1L86.1,70.4L86.5,70.5L86.2,70.0L86.8,70.0L86.9,69.4L87.9,69.7L87.8,69.4L88.6,69.5L88.6,69.8L89.0,69.6L89.0,69.8L89.3,69.3L90.4,70.1L91.9,69.1L92.1,70.1ZM63.5,78.3L64.8,78.2L65.1,78.8L65.9,78.6L66.0,79.0L66.1,78.4L66.5,78.9L66.7,78.7L66.6,79.0L67.7,79.0L67.9,79.3L68.4,78.9L68.3,78.5L68.7,78.9L68.8,78.6L69.6,79.0L66.7,80.7L66.9,81.0L67.5,81.0L68.6,82.9L69.5,83.1L69.6,83.4L70.4,83.2L71.1,83.6L71.2,83.3L72.2,83.4L73.2,83.0L73.6,83.6L72.6,84.4L72.7,84.7L71.9,85.2L70.1,85.4L68.2,86.0L66.4,86.0L66.0,86.6L63.5,88.0L62.5,87.5L61.1,91.2L61.5,92.4L61.1,92.0L60.7,92.9L60.1,93.5L59.5,93.4L59.1,94.3L57.2,95.9L56.8,96.0L56.5,95.4L55.7,95.6L55.6,95.1L55.0,94.8L55.2,94.3L54.8,94.5L54.7,93.8L54.4,93.9L53.8,92.7L52.2,91.8L50.5,91.8L50.5,92.9L48.8,93.9L46.1,91.7L46.0,90.8L44.4,89.1L44.4,82.3L45.2,82.1L45.8,82.5L45.9,82.1L46.4,82.6L46.5,82.3L46.6,82.5L47.5,82.3L47.4,82.1L47.8,81.9L48.2,82.2L49.5,81.6L49.9,81.9L49.7,81.4L50.1,81.4L49.8,81.1L50.4,80.6L51.1,80.3L51.6,80.6L51.8,80.2L52.1,80.6L52.3,80.2L52.9,80.3L52.6,79.9L55.4,78.8L56.0,79.2L55.8,78.4L56.4,78.1L57.6,78.8L59.3,78.5L59.3,78.1L60.2,78.5L61.8,78.2L62.4,78.5L63.0,78.0L63.5,78.3ZM72.7,85.1L72.1,85.6L72.2,86.4L73.6,87.4L74.8,87.7L74.8,92.7L75.7,92.5L77.9,92.9L79.0,92.8L79.7,93.2L80.2,94.5L80.0,95.5L80.4,96.3L78.5,96.4L77.4,95.6L76.6,96.3L76.2,96.1L75.1,96.7L73.2,97.1L73.0,102.3L74.2,104.0L76.6,105.4L76.9,106.5L76.5,107.3L78.1,110.0L77.7,110.1L77.7,111.1L76.9,110.7L76.3,111.2L76.0,109.8L75.4,109.6L75.7,110.1L75.4,110.2L75.0,109.6L73.9,110.1L74.3,109.2L73.4,108.8L73.2,109.1L73.0,109.0L72.5,109.2L72.9,109.7L72.3,110.2L71.8,109.8L72.0,109.2L71.4,109.5L71.2,109.1L71.7,108.4L71.3,107.5L71.5,106.1L71.1,105.9L71.9,105.0L71.2,104.7L70.7,105.0L71.0,105.2L69.9,105.2L69.4,104.3L68.9,104.4L67.5,103.7L66.7,104.1L65.9,102.6L66.3,102.3L65.9,101.7L64.3,101.1L64.0,100.6L63.1,100.7L62.3,99.8L61.2,100.3L61.2,99.9L60.8,99.9L61.0,99.6L60.4,99.8L60.6,99.5L60.2,99.6L59.8,98.7L59.5,98.9L59.3,98.4L58.7,98.5L58.9,98.1L58.1,97.6L57.9,96.7L57.9,96.9L57.6,96.8L57.6,96.2L57.3,95.9L59.1,94.3L59.5,93.4L60.1,93.5L60.7,92.9L61.1,92.0L61.5,92.4L61.1,91.2L62.5,87.5L63.5,88.0L66.0,86.6L66.4,86.0L69.2,85.9L72.6,84.7L72.7,85.1Z", "brisa": "M7.9,77.2L7.5,77.1L7.8,76.6L8.1,76.6L7.9,77.2ZM22.5,74.7L24.8,75.3L24.9,76.5L25.6,77.2L25.7,78.7L26.8,81.3L26.2,81.7L25.3,81.1L24.5,81.9L23.1,81.8L23.0,82.5L22.3,82.8L22.6,84.1L22.1,84.4L21.0,83.9L20.5,84.3L20.7,86.1L21.2,86.1L21.8,86.6L21.9,88.0L22.9,88.3L23.3,88.9L24.2,88.8L23.1,90.8L23.4,91.7L24.0,91.6L23.9,92.2L24.2,92.1L24.8,92.9L23.0,93.4L20.9,92.6L20.9,90.1L20.0,89.6L19.3,90.6L18.7,90.6L19.1,88.6L18.6,88.1L17.2,87.3L15.6,87.7L14.7,87.5L15.7,85.5L15.2,84.1L14.7,84.3L14.4,83.3L12.6,83.5L11.6,83.0L9.4,79.7L9.7,79.7L9.8,79.3L9.9,79.6L10.0,79.0L10.6,79.5L10.7,78.8L11.4,78.5L11.0,78.5L12.0,77.8L11.6,77.8L12.1,76.9L11.6,77.0L11.9,76.4L12.4,76.4L12.1,76.3L13.5,75.0L14.1,74.9L14.6,75.6L15.2,75.5L15.6,76.2L17.6,76.2L18.0,76.5L21.2,76.2L21.7,75.1L21.4,74.6L22.5,74.7ZM17.4,34.7L17.9,36.3L17.3,37.6L16.4,38.3L17.7,39.9L19.2,40.3L19.8,41.8L21.3,42.9L21.6,43.8L21.2,45.1L20.0,44.7L18.9,44.8L19.2,45.9L17.8,46.4L18.1,47.2L17.9,47.5L18.4,47.6L18.3,47.9L18.7,47.9L18.4,48.3L19.4,49.1L19.3,50.4L19.9,51.6L23.5,51.4L23.6,52.8L24.5,53.1L24.3,54.5L24.5,55.7L25.5,57.2L22.8,58.7L23.6,60.7L24.2,61.3L23.7,62.3L22.3,63.3L21.3,65.5L20.9,65.7L21.2,67.0L21.9,67.7L19.8,68.9L19.2,69.0L18.6,68.6L16.1,67.5L15.5,67.6L15.2,67.0L15.0,67.5L13.8,67.4L13.1,67.7L13.2,67.3L13.7,67.2L13.1,67.2L13.3,66.5L13.3,66.9L14.0,67.0L13.9,66.2L14.7,64.8L14.7,62.8L15.1,63.1L14.5,62.4L14.3,61.3L14.3,59.2L14.0,59.2L14.1,58.5L14.3,58.6L13.9,57.7L14.2,57.3L13.8,56.9L13.0,56.8L13.2,56.1L14.4,56.0L15.4,54.6L14.6,52.4L14.3,52.6L13.6,51.1L13.7,50.5L14.1,50.8L14.3,50.6L14.2,49.8L14.7,49.7L14.9,48.7L14.3,47.4L13.8,47.3L13.4,47.7L13.0,46.6L11.9,46.1L12.2,45.1L10.3,42.9L10.9,41.2L11.9,40.8L11.7,39.6L12.3,39.7L13.0,40.8L14.6,38.5L15.9,37.7L15.4,35.4L13.9,33.0L14.5,31.7L17.4,34.7ZM9.7,80.4L11.6,83.0L12.6,83.5L14.4,83.3L14.7,84.3L15.2,84.1L15.7,85.5L15.0,86.4L14.8,87.6L16.6,87.6L17.3,87.3L19.1,88.6L18.7,89.6L18.8,90.5L16.7,91.5L17.4,95.7L16.3,96.0L16.7,98.2L14.0,98.2L13.4,97.1L13.4,96.4L12.0,95.4L11.9,94.3L10.3,94.7L9.4,94.6L7.2,92.9L6.4,92.6L5.4,91.6L4.5,91.4L1.0,88.2L2.2,86.4L4.7,86.6L4.5,85.0L3.8,84.6L3.9,83.8L4.6,83.8L4.7,83.2L4.4,83.2L4.2,82.4L4.7,81.1L5.9,80.3L6.6,81.3L6.7,80.3L6.9,80.6L7.8,79.6L8.1,79.6L8.4,80.5L9.3,79.6L9.7,80.4ZM24.9,61.2L25.6,62.1L26.0,62.1L26.0,62.9L27.6,63.3L27.6,63.9L26.4,64.2L27.2,67.4L27.4,67.8L27.8,67.8L27.9,68.8L27.5,69.5L26.6,69.7L26.0,70.7L24.8,75.3L21.7,74.5L21.1,76.2L18.0,76.5L17.6,76.2L15.6,76.2L14.1,74.9L13.1,74.8L14.6,73.7L14.5,73.0L15.0,72.4L16.1,71.7L16.1,70.4L16.5,70.5L17.0,69.6L14.9,70.0L15.1,69.8L14.7,69.4L15.5,69.1L15.5,68.5L15.3,68.2L14.8,68.4L14.4,69.4L13.8,68.7L13.8,68.0L14.3,67.4L15.0,67.5L15.2,67.0L15.5,67.6L16.0,67.5L16.8,68.1L17.7,68.0L19.2,69.0L20.9,68.5L21.9,67.6L21.2,67.0L20.9,65.7L21.3,65.5L22.7,62.8L23.7,62.3L24.2,61.2L24.9,61.2Z", "dorado": "M65.0,65.4L64.8,78.2L63.5,78.3L63.0,78.0L62.4,78.5L61.8,78.2L60.2,78.5L59.3,78.1L59.3,78.5L57.6,78.8L56.4,78.1L55.8,78.4L56.0,79.2L55.4,78.8L52.6,79.9L52.9,80.3L52.3,80.2L52.1,80.6L51.8,80.2L51.6,80.6L51.1,80.3L50.4,80.6L49.8,81.1L50.1,81.4L49.7,81.4L49.9,81.9L49.5,81.6L48.2,82.2L47.8,81.9L47.4,82.1L47.5,82.3L46.6,82.5L46.5,82.3L46.4,82.6L45.9,82.1L45.8,82.5L44.8,82.1L44.4,82.3L44.3,88.1L41.7,88.4L40.5,87.7L39.8,86.9L37.7,86.5L36.7,85.0L36.5,83.6L36.0,80.8L36.8,79.7L36.8,78.9L34.2,77.4L34.8,76.5L35.8,76.1L36.5,74.8L36.7,73.2L37.5,71.6L38.1,71.6L39.7,69.1L43.5,67.4L42.9,66.0L43.6,65.1L43.9,64.9L44.8,65.4L45.2,66.9L46.3,66.7L48.4,67.4L49.0,63.6L51.8,67.0L53.1,66.4L54.4,66.5L55.5,65.8L56.8,65.8L57.1,66.2L57.7,66.0L59.1,64.7L64.9,62.1L65.0,65.4ZM68.0,44.4L68.9,44.5L69.2,44.9L70.8,45.6L72.4,45.3L78.1,52.4L77.9,52.7L76.6,53.0L74.4,52.8L73.9,52.1L73.2,52.1L72.2,50.9L66.4,51.4L63.8,50.9L60.7,51.6L59.8,51.4L56.4,52.6L54.2,51.1L55.1,50.1L55.1,49.6L55.8,49.6L56.3,49.1L57.7,45.0L59.6,44.6L60.0,44.9L60.2,44.6L61.7,45.0L64.3,44.9L64.9,45.3L66.6,44.5L68.0,44.4ZM72.2,50.9L73.2,52.1L73.9,52.1L74.3,52.8L74.8,52.9L73.2,55.7L71.7,56.6L69.6,57.2L68.1,58.4L67.7,59.3L65.9,60.4L64.9,62.1L59.1,64.7L57.7,66.0L57.1,66.2L56.8,65.8L55.5,65.8L54.4,66.5L53.1,66.4L52.8,66.8L51.5,66.8L49.0,63.6L48.8,62.7L49.1,61.6L50.2,60.8L49.8,59.8L49.8,59.3L50.9,58.2L51.9,59.1L54.1,56.6L55.0,57.2L55.2,55.9L55.6,55.7L54.9,54.8L53.8,54.3L54.3,53.8L54.7,52.5L54.1,51.6L54.2,51.1L55.1,51.5L55.4,52.2L56.4,52.6L59.8,51.4L61.4,51.6L63.8,50.9L66.4,51.4L72.2,50.9ZM91.2,50.7L92.9,50.9L93.6,51.4L93.4,51.9L93.9,53.0L92.6,54.5L92.4,57.1L90.8,58.3L90.5,59.0L90.9,60.8L90.3,64.6L90.9,65.6L91.1,67.5L91.9,69.1L90.4,70.1L89.3,69.3L89.0,69.8L89.0,69.6L88.6,69.8L88.6,69.5L87.8,69.4L87.9,69.7L86.9,69.4L86.8,70.0L86.2,70.0L86.5,70.5L86.1,70.4L85.5,71.1L85.1,70.9L85.1,71.2L83.5,71.1L83.3,71.6L82.8,71.5L83.0,72.0L82.1,71.4L82.1,71.9L81.1,72.2L80.7,71.9L80.2,72.2L80.2,71.8L79.7,71.9L79.4,71.6L79.5,72.1L79.2,72.2L79.3,71.7L78.4,72.0L77.9,71.6L77.6,72.0L76.8,71.9L76.8,72.7L76.3,72.7L76.0,73.0L75.8,72.6L75.8,72.9L75.3,72.9L75.2,73.3L74.8,73.0L75.1,73.7L74.3,72.9L74.6,74.0L73.9,73.6L74.1,74.1L73.7,74.3L73.3,74.0L72.2,74.5L72.7,74.9L72.4,75.1L72.6,75.7L72.3,75.5L72.2,76.0L71.9,75.7L71.1,76.7L71.6,77.0L71.2,77.1L71.4,77.7L70.8,78.5L69.5,79.0L68.8,78.6L68.7,78.9L68.3,78.5L68.4,78.9L67.9,79.3L67.7,79.0L66.6,79.0L66.7,78.7L66.5,78.9L66.1,78.4L66.0,79.0L65.9,78.6L65.1,78.8L64.8,78.2L64.9,62.0L65.8,60.4L67.7,59.3L68.1,58.4L69.6,57.2L71.7,56.6L73.2,55.7L74.8,52.9L76.6,53.0L77.8,52.8L78.7,52.1L79.0,52.5L79.6,52.4L80.5,51.4L85.2,52.1L88.6,51.3L89.6,51.5L91.2,50.7Z"}};
+document.body.insertAdjacentHTML("afterbegin",`<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><path id="co-all" d="${MAP.all}"/>${Object.entries(MAP.reg).map(([k,d])=>`<path id="co-${k}" d="${d}"/>`).join("")}</defs></svg>`);
+const mapSVG=c=>`<svg class="co" viewBox="${MAP.vb}" role="img" aria-label="Mapa de Colombia con la ${c.region} resaltada"><use href="#co-all" class="co-o"/><use href="#co-all" class="co-f"/><use href="#co-${c.id}" class="co-r" style="fill:${c.color}"/></svg>`;
+const flameHTML=(c,d=0)=>`<span class="fl" style="--fx:${c.fx};--fy:${c.fy};--fd:${d}s"><b><i></i></b></span>`;
+
+/* ---------- collection ---------- */
+$("#cards").innerHTML = CANDLES.map((c,i)=>`
+  <article class="card" data-rv style="--c:${c.color};--t:${c.tint};--dl:${i*.09}s" data-tint="${c.tint}">
+    <h3>${c.name}</h3>
+    <span class="region">${c.region}</span>
+    <span class="notes">${c.notes}</span>
+    <div class="shot"><img src="img/candle-${c.id}.webp" alt="Vela ${c.name} de ${c.notes}" loading="lazy">${flameHTML(c,-i*.37)}</div>
+    <div class="foot">${mapSVG(c)}<p class="desc">${c.desc}</p></div>
+    <button class="ask" data-ask="${c.id}">Preguntar a Macondí</button>
+  </article>`).join("");
+const col=$(".collection");
+document.querySelectorAll(".card").forEach(card=>{
+  const on=()=>col.style.setProperty("--tint",card.dataset.tint);
+  card.addEventListener("pointerenter",on); card.addEventListener("focusin",on);
+});
+$("#cards").addEventListener("pointerleave",()=>col.style.setProperty("--tint","var(--cream)"));
+if(matchMedia("(max-width:1080px)").matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting) col.style.setProperty("--tint",e.target.dataset.tint)}),{root:$("#cards"),threshold:.7});
+  document.querySelectorAll(".card").forEach(c=>io.observe(c));
+}
+
+/* ---------- scroll reveal (only for content below the first screen) ---------- */
+const rvEls=[...document.querySelectorAll("[data-rv]")];
+if(!REDUCE){
+  const later=rvEls.filter(el=>el.getBoundingClientRect().top>innerHeight*0.95);
+  later.forEach(el=>el.classList.add("pre"));
+  requestAnimationFrame(()=>later.forEach(el=>el.classList.add("rv")));
+  const rio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target;el.classList.remove("pre");rio.unobserve(el);setTimeout(()=>el.classList.remove("rv"),1600)}}),{threshold:.15});
+  later.forEach(el=>rio.observe(el));
+}
+
+/* ---------- hero parallax ---------- */
+const hero=$("#inicio"), nav=$("#nav");
+addEventListener("scroll",()=>{
+  hero.style.setProperty("--sy",Math.min(scrollY,1200));
+  nav.classList.toggle("scrolled",scrollY>20);
+},{passive:true});
+
+/* ---------- ritual: recorre los tres pasos ---------- */
+const rstage=$("#rstage"), stepsEl=$("#steps"), rtag=$("#rtag");
+const RTAGS={1:"El aroma llena tu espacio",2:"La cera queda tibia",3:"Hidratación para tus manos"};
+const RDUR={1:5200,2:4800,3:5600};
+let rstep=1, rtimer=null, rvisible=false;
+function setStep(n){
+  rstep=n; rstage.classList.remove("s1","s2","s3"); rstage.offsetWidth; rstage.classList.add("s"+n);
+  stepsEl.querySelectorAll("li").forEach(li=>{const on=+li.dataset.step===n; li.classList.toggle("on",false); if(on){li.style.setProperty("--dur",RDUR[n]+"ms"); li.offsetWidth; li.classList.add("on")}});
+  rtag.textContent=RTAGS[n]; rtag.classList.remove("swap"); rtag.offsetWidth; rtag.classList.add("swap");
+  clearTimeout(rtimer);
+  if(!REDUCE&&rvisible) rtimer=setTimeout(()=>setStep(n%3+1),RDUR[n]);
+}
+stepsEl.addEventListener("click",e=>{const li=e.target.closest("li"); if(li) setStep(+li.dataset.step)});
+stepsEl.addEventListener("keydown",e=>{const li=e.target.closest("li"); if(li&&(e.key==="Enter"||e.key===" ")){e.preventDefault();setStep(+li.dataset.step)}});
+new IntersectionObserver(es=>es.forEach(e=>{
+  rvisible=e.isIntersecting; stepsEl.classList.toggle("paused",!rvisible);
+  if(rvisible) setStep(rstep); else clearTimeout(rtimer);
+}),{threshold:.35}).observe(rstage);
+
+/* ---------- butterflies ---------- */
+let ZF=1; const readZ=()=>{ZF=parseFloat(getComputedStyle(document.body).zoom)||1}; readZ(); addEventListener("resize",readZ);
+const flies=[]; const pointer={x:-9999,y:-9999};
+addEventListener("pointermove",e=>{pointer.x=e.clientX;pointer.y=e.clientY},{passive:true});
+function fly(container,o){
+  const el=document.createElement("div"); el.className="bf"; el.style.width=o.size+"px";
+  el.innerHTML=`<img src="img/butterfly.webp" alt="" style="animation-duration:${o.flap||.22}s">`;
+  container.appendChild(el);
+  flies.push({el,container,face:1,ox:0,oy:0,...o});
+}
+fly(hero,{x:24,y:26,size:120,rx:60,ry:34,speed:.45,phase:0,flap:.24});
+fly(hero,{x:76,y:28,size:70,rx:70,ry:40,speed:.55,phase:2,flap:.19});
+fly(hero,{x:31,y:74,size:58,rx:80,ry:30,speed:.6,phase:4,flap:.17});
+fly($("#aboutArt"),{x:42,y:32,size:140,rx:30,ry:24,speed:.35,phase:1,flap:.28});
+fly($("#aboutArt"),{x:28,y:70,size:78,rx:36,ry:24,speed:.5,phase:3,flap:.2});
+fly($("#invitacion"),{x:18,y:30,size:76,rx:60,ry:30,speed:.5,phase:5,flap:.2});
+fly($("#invitacion"),{x:82,y:66,size:62,rx:60,ry:30,speed:.55,phase:1.5,flap:.18});
+fly($("#agentBg"),{x:12,y:22,size:84,rx:50,ry:40,speed:.4,phase:2.5,flap:.22});
+fly($("#agentBg"),{x:90,y:60,size:66,rx:40,ry:50,speed:.5,phase:.7,flap:.19});
+function tick(t){
+  for(const f of flies){
+    if(f.container.closest(".view").hidden) continue;
+    const r=f.container.getBoundingClientRect();
+    if(r.bottom<-50||r.top>innerHeight+50) continue;
+    const s=REDUCE?f.phase:t/1000*f.speed+f.phase;
+    let x=r.width*f.x/100+Math.sin(s)*f.rx+Math.sin(s*2.3)*f.rx*.25;
+    let y=r.height*f.y/100+Math.sin(s*1.7)*f.ry+Math.cos(s*.9)*f.ry*.3;
+    const dx=r.left+x-pointer.x, dy=r.top+y-pointer.y, d=Math.hypot(dx,dy)||1;
+    if(d<170&&!REDUCE){const k=(170-d)/170*7;f.ox+=dx/d*k;f.oy+=dy/d*k}
+    f.ox*=.95;f.oy*=.95; x+=f.ox; y+=f.oy;
+    const vx=f.lx==null?0:x-f.lx, vy=f.ly==null?0:y-f.ly; f.lx=x; f.ly=y;
+    if(Math.abs(vx)>.35) f.face=vx>0?1:-1;
+    const tilt=Math.max(-16,Math.min(16,vy*4));
+    f.el.style.transform=`translate(${x/ZF-f.size/2}px,${y/ZF-f.size/2}px) scaleX(${f.face}) rotate(${-6+tilt*f.face}deg)`;
+  }
+  if(!REDUCE) requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+
+/* ---------- falling petals ---------- */
+function petals(container,every,max){
+  let alive=0;
+  setInterval(()=>{
+    if(REDUCE||document.hidden||container.closest(".view").hidden||alive>=max) return;
+    const r=container.getBoundingClientRect(); if(r.bottom<0||r.top>innerHeight) return;
+    const p=new Image(); p.src=`img/petal-${Math.floor(Math.random()*5)}.webp`; p.alt=""; p.className="petal";
+    const w=26+Math.random()*44; p.style.width=w+"px"; p.style.left=(Math.random()*96)+"%";
+    container.appendChild(p); alive++;
+    const h=r.height/ZF+100, drift=(Math.random()-.5)*260, rot=(Math.random()-.5)*540, dur=9000+Math.random()*7000;
+    p.animate([
+      {transform:"translate(0,-90px) rotate(0deg)",opacity:0},
+      {transform:`translate(${drift*.3+40}px,${h*.25}px) rotate(${rot*.25}deg)`,opacity:.95,offset:.25},
+      {transform:`translate(${drift*.6-40}px,${h*.55}px) rotate(${rot*.55}deg)`,offset:.55},
+      {transform:`translate(${drift*.85+30}px,${h*.8}px) rotate(${rot*.8}deg)`,opacity:.9,offset:.8},
+      {transform:`translate(${drift}px,${h}px) rotate(${rot}deg)`,opacity:0}
+    ],{duration:dur,easing:"linear"}).finished.then(()=>{p.remove();alive--});
+  },every);
+}
+petals(hero,1300,9); petals($("#invitacion"),1800,6); petals($("#agentBg"),2200,6);
+
+/* ---------- views + veil transition ---------- */
+const homeV=$("#homeView"), agentV=$("#agentView"), veil=$("#veil");
+let current="home", moving=false, pendingAsk=null, lastClick=null;
+document.addEventListener("click",e=>{lastClick={x:e.clientX,y:e.clientY}},true);
+function show(v){
+  current=v; homeV.hidden=v!=="home"; agentV.hidden=v!=="agent";
+  if(v==="agent"){ agentV.querySelectorAll(".enter").forEach(el=>{el.style.animation="none";el.offsetWidth;el.style.animation=""}); }
+}
+async function go(v,target){
+  if(moving||v===current){ if(target) target.scrollIntoView(); return; }
+  moving=true;
+  $("#veilText").textContent=v==="agent"?"Tu guía de aromas":"Aromas de una tierra mágica";
+  if(REDUCE){ show(v); scrollTo(0,0); if(target) target.scrollIntoView(); moving=false; afterShow(v); return; }
+  const c0=lastClick||{x:innerWidth/2,y:innerHeight/2}; lastClick=null;
+  const o={x:c0.x/ZF,y:c0.y/ZF};
+  const R=Math.hypot(Math.max(c0.x,innerWidth-c0.x),Math.max(c0.y,innerHeight-c0.y))/ZF;
+  veil.hidden=false;
+  const mark=veil.querySelector(".mark");
+  mark.animate([{opacity:0,transform:"translateY(18px) scale(.96)"},{opacity:1,transform:"none"}],{duration:700,delay:250,easing:"cubic-bezier(.2,.7,.2,1)",fill:"both"});
+  await veil.animate([{clipPath:`circle(0px at ${o.x}px ${o.y}px)`},{clipPath:`circle(${R}px at ${o.x}px ${o.y}px)`}],{duration:720,easing:"cubic-bezier(.7,0,.25,1)",fill:"forwards"}).finished;
+  show(v); document.documentElement.style.scrollBehavior="auto"; scrollTo(0,0); if(target) target.scrollIntoView();
+  document.documentElement.style.scrollBehavior="";
+  await new Promise(r=>setTimeout(r,520));
+  mark.animate([{opacity:1,transform:"none"},{opacity:0,transform:"translateY(-24px)"}],{duration:400,fill:"forwards"});
+  await veil.animate([{clipPath:"inset(0 0 0 0)"},{clipPath:"inset(0 0 100% 0)"}],{duration:800,easing:"cubic-bezier(.7,0,.25,1)",fill:"forwards"}).finished;
+  veil.hidden=true; veil.getAnimations().forEach(a=>a.cancel()); mark.getAnimations().forEach(a=>a.cancel());
+  moving=false; afterShow(v);
+}
+function afterShow(v){ if(v==="agent"&&pendingAsk){ const q=pendingAsk; pendingAsk=null; setTimeout(()=>send(q),350); } }
+function route(){
+  const h=location.hash.slice(1);
+  if(h==="agente") go("agent");
+  else go("home", h? document.getElementById(h):null);
+}
+addEventListener("hashchange",route);
+document.addEventListener("click",e=>{
+  const a=e.target.closest("[data-go-agent]");
+  if(a){ e.preventDefault(); if(location.hash==="#agente") go("agent"); else location.hash="agente"; }
+});
+$("#cards").addEventListener("click",e=>{
+  const b=e.target.closest("[data-ask]"); if(!b) return; const c=byId[b.dataset.ask];
+  pendingAsk=`Cuéntame más de la vela ${c.name} (${c.notes}). ¿Para qué espacio y momento es ideal?`;
+  location.hash="agente";
+});
+const fab=$("#fab");
+addEventListener("scroll",()=>fab.classList.toggle("away",scrollY<innerHeight*.6||(()=>{const r=$("#invitacion").getBoundingClientRect();return r.top<innerHeight&&r.bottom>0})()),{passive:true});
+fab.classList.add("away");
+
+/* ---------- agent ---------- */
+const log=$("#log"), input=$("#input"), sendBtn=$("#send");
+let sample=null, dict=null, tts=null, speakOn=false, busy=false, exampleShown=true, turns=[];
+const PROFILE_KEYS=[["espacio","Espacio"],["animo","Quieres sentir"],["notas","Notas"],["piel","Piel / manos"],["momento","Momento"]];
+let profile={espacio:"Baño pequeño",animo:"Frescura, ligereza",notas:"Cítricas, limpias",piel:"Manos resecas",momento:"Después de la ducha"};
+function renderProfile(changed=[]){
+  if(!$("#prof")) return;
+  $("#prof").innerHTML=PROFILE_KEYS.map(([k,l])=>`<div><dt>${l}</dt><dd class="${profile[k]?'':'empty'} ${changed.includes(k)?'flash':''}">${profile[k]?esc(profile[k]):"Sin definir"}</dd></div>`).join("");
+}
+function add(cls,text){const d=document.createElement("div");d.className="msg "+cls;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
+const recsHTML=ids=>ids.filter(id=>byId[id]).map((id,i)=>{const c=byId[id];return `<div class="rec" style="--c:${c.color};--t:${c.tint};--dl:${i*.12}s"><img src="img/candle-${c.id}.webp" alt=""><div><b>${c.name}</b><small>${c.notes} · ${c.region}</small></div></div>`}).join("");
+function addRecs(ids){
+  const h=recsHTML(ids); if(!h) return;
+  const w=document.createElement("div"); w.className="recs"; w.innerHTML=h;
+  log.appendChild(w); log.scrollTop=log.scrollHeight;
+}
+function showExample(){
+  const t=document.createElement("div");t.className="example-tag";t.textContent="Conversación de ejemplo";log.appendChild(t);
+  add("bot","¡Hola! Soy Macondí, tu guía de aromas. Cuéntame dónde vas a encender tu vela, cómo te quieres sentir o qué olores te gustan, y te ayudo a elegir.");
+  add("user","Busco algo fresco para mi baño, que es pequeño. Y tengo las manos muy resecas.");
+  add("bot","Para un baño pequeño te recomiendo Marea (Coco & Limón): es fresca y luminosa, así que perfuma sin saturar. Enciéndela un rato antes o después de la ducha.\n\nComo tienes las manos resecas, aprovecha su doble uso: apágala, espera a que la cera esté tibia y masajéala en tus manos. Si prefieres algo más herbal, Brisa (Lulo & Hierbabuena) también va muy bien en espacios pequeños.");
+  addRecs(["marea","brisa"]);
+}
+function clearExample(){
+  if(!exampleShown) return; exampleShown=false; log.innerHTML="";
+  profile={espacio:"",animo:"",notas:"",piel:"",momento:""}; renderProfile();
+  add("bot","¡Hola! Soy Macondí. Cuéntame qué buscas y te ayudo a encontrar tu vela.");
+}
+const CHIPS=["Algo alegre para mi sala","Me gustan los olores cítricos","Un regalo para mi mamá","Tengo la piel sensible","Para concentrarme trabajando","Algo especial para una cita"];
+$("#chips").innerHTML=CHIPS.map(c=>`<button class="chip" type="button">${c}</button>`).join("");
+$("#inviteChips").innerHTML=CHIPS.slice(0,4).map(c=>`<button class="chip" type="button">${c}</button>`).join("");
+$("#chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b) send(b.textContent)});
+$("#inviteChips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(!b) return; pendingAsk=b.textContent; location.hash="agente"});
+
+// Las instrucciones del agente viven en el servidor (api/_lib/prompt.js).
+function splitMeta(t){const i=t.indexOf("###");return i<0?{shown:t.trim(),meta:null}:{shown:t.slice(0,i).trim(),meta:t.slice(i+3).trim()}}
+function applyMeta(meta){
+  if(!meta) return [];
+  try{const j=JSON.parse(meta.slice(meta.indexOf("{"),meta.lastIndexOf("}")+1)); const ch=[];
+    if(j.perfil) for(const [k] of PROFILE_KEYS){ const v=j.perfil[k]&&String(j.perfil[k]).slice(0,60); if(v&&v!==profile[k]){profile[k]=v;ch.push(k)} }
+    renderProfile(ch); return Array.isArray(j.velas)?j.velas.map(String):[];
+  }catch{return []}
+}
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+function localReply(text){
+  const t=norm(text), ch=[], set=(k,v)=>{if(profile[k]!==v){profile[k]=v;ch.push(k)}};
+  const sp=[["bano","Baño"],["sala","Sala"],["habitacion","Habitación"],["cuarto","Habitación"],["oficina","Oficina"],["estudio","Estudio"],["cocina","Cocina"]].find(([k])=>t.includes(k)); if(sp) set("espacio",sp[1]+(t.includes("pequen")?" pequeño":""));
+  if(/reseca|seca|agriet/.test(t)) set("piel","Manos resecas"); if(/sensible|alerg/.test(t)) set("piel","Piel sensible");
+  if(/noche/.test(t)) set("momento","Noche"); if(/manana/.test(t)) set("momento","Mañana");
+  if(/citric|fresc|menta/.test(t)) set("notas","Frescas, cítricas"); if(/dulce|vainilla|cafe/.test(t)) set("notas","Dulces, cálidas"); if(/frut/.test(t)) set("notas","Frutales");
+  if(/relaj|calma|tranquil/.test(t)) set("animo","Calma"); if(/alegr|energ/.test(t)) set("animo","Energía, alegría"); if(/concentr/.test(t)) set("animo","Concentración");
+  renderProfile(ch);
+  const picks=CANDLES.map(c=>({c,s:c.kw.reduce((a,k)=>a+(t.includes(k)?1:0),0)})).sort((a,b)=>b.s-a.s).filter(x=>x.s>0).slice(0,2).map(x=>x.c);
+  if(/sensible|alerg|embaraz/.test(t)) return {text:"Gracias por contarme. Si tienes la piel sensible, prueba primero la cera tibia en una zona pequeña antes de aplicarla en toda la mano. "+(picks.length?`Por lo que me dices, te puede gustar ${picks.map(c=>c.name).join(" o ")}.`:"¿Qué aromas disfrutas más: dulces, frescos o frutales?"),ids:picks.map(c=>c.id)};
+  if(!picks.length) return {text:"Cuéntame un poco más: ¿dónde vas a encender la vela y cómo te quieres sentir? ¿Te atraen más los aromas dulces, frescos o frutales?",ids:[]};
+  const [a,b]=picks;
+  return {text:`Te recomiendo ${a.name} (${a.notes}). ${a.desc}`+(b?`\n\nTambién podría gustarte ${b.name} (${b.notes}).`:"")+"\n\nCuando la cera se derrita, apágala, espera a que esté tibia y úsala para hidratar tus manos.",ids:picks.map(c=>c.id)};
+}
+async function send(text){
+  text=(text||"").trim(); if(!text||busy) return;
+  const V=voiceMode;
+  if(!V) setTab("chat");
+  clearExample(); input.value=""; autoGrow();
+  add("user",text); turns.push({role:"user",content:text});
+  if(V){ vTextEl.textContent="“"+text+"”"; vReplyEl.textContent=""; vRecsEl.innerHTML=""; setV("thinking","Pensando en tu aroma…"); }
+  busy=true; sendBtn.disabled=true;
+  const bubble=add("bot thinking",""); bubble.innerHTML='Pensando en tu aroma<span class="dots"><i></i><i></i><i></i></span>';
+  let shown="", ids=[];
+  try{
+    if(!sample){
+      await new Promise(r=>setTimeout(r,700));
+      const r=localReply(text); shown=r.text; ids=r.ids;
+    }else{
+      try{
+        const {text:full}=await sample(turns.slice(-12),{
+          onText:({text})=>{const s=splitMeta(text).shown||"…";bubble.classList.remove("thinking");bubble.textContent=s;log.scrollTop=log.scrollHeight;if(V)vReplyEl.textContent=s}});
+        const m=splitMeta(full); shown=m.shown; ids=applyMeta(m.meta);
+      }catch(e){
+        const code=e&&e.code;
+        if(["not_granted","sampling_disabled","not_declared","capability_disabled","capability_removed"].includes(code)){
+          setStatus(false); sample=null; const r=localReply(text); shown=r.text; ids=r.ids;
+        }else{
+          bubble.classList.remove("thinking"); bubble.textContent=(e&&e.text)?splitMeta(e.text).shown:""; if(!bubble.textContent) bubble.remove();
+          const msg=code==="rate_limited"?"Macondí está recibiendo muchas preguntas. Intenta de nuevo en un momento.":code==="session_expired"?"Tu sesión expiró. Vuelve a iniciar sesión para seguir conversando.":"No pude terminar la respuesta. Inténtalo otra vez.";
+          add("note",msg); turns.pop(); if(V) setV("idle",msg); return;
+        }
+      }
+    }
+    bubble.classList.remove("thinking"); bubble.textContent=shown; addRecs(ids);
+    turns.push({role:"assistant",content:shown});
+    if(V){ vReplyEl.textContent=shown; vRecsEl.innerHTML=recsHTML(ids); }
+    speakReply(shown,V);
+  }finally{busy=false;sendBtn.disabled=false}
+}
+function speakReply(t,V){
+  if(!(speakOn||V)||!tts){ if(V) setV("idle","Toca la mariposa para responder"); return; }
+  if(V) setV("speaking","Macondí te está hablando…");
+  tts.speak(t.slice(0,2000),{language:"es"}).catch(()=>{}).finally(()=>{ if(V&&voiceMode&&dstate==="idle") setV("idle","Toca la mariposa para responder"); });
+}
+
+/* ---------- modo voz ---------- */
+const voiceEl=$("#voice"), orb=$("#orb"), vStateEl=$("#vState"), vTextEl=$("#vText"), vReplyEl=$("#vReply"), vRecsEl=$("#vRecs");
+let voiceMode=false, vFinal="", vPartial="", vTimer=null, dstate="idle";
+const NO_MIC="El micrófono funciona en Chrome, Edge o Safari. En este navegador puedes escribirle a Macondí en el chat.";
+function setV(state,msg){ voiceEl.classList.remove("idle","listening","thinking","speaking"); voiceEl.classList.add(state); if(msg!=null) vStateEl.textContent=msg; }
+function renderVT(){ vTextEl.innerHTML=esc(vFinal)+(vPartial?`<span class="partial">${esc(vPartial)}</span>`:""); }
+$("#voiceBtn").addEventListener("click",()=>{
+  setTab("chat"); voiceMode=true; voiceEl.hidden=false; voiceEl.style.animation="none"; voiceEl.offsetWidth; voiceEl.style.animation="";
+  vTextEl.textContent=""; vReplyEl.textContent=""; vRecsEl.innerHTML="";
+  orb.disabled=!dict; setV("idle", dict?"Toca la mariposa y cuéntame qué buscas":NO_MIC);
+});
+$("#vClose").addEventListener("click",()=>{
+  voiceMode=false; voiceEl.hidden=true; clearTimeout(vTimer);
+  if(dict&&dstate!=="idle") dict.stop().catch(()=>{}); if(tts) tts.stop();
+});
+orb.addEventListener("click",()=>{
+  if(!dict){ setV("idle",NO_MIC); return; }
+  if(dstate==="listening"||dstate==="starting"){ clearTimeout(vTimer); dict.stop().catch(()=>{}); return; }
+  if(busy) return;
+  if(tts) tts.stop();
+  vFinal=""; vPartial=""; vTextEl.textContent=""; vReplyEl.textContent=""; vRecsEl.innerHTML="";
+  dict.start().catch(e=>{
+    const c=e&&e.code;
+    if(c==="not_granted") setV("idle","No tengo permiso para usar tu micrófono. Puedes activarlo en el menú de permisos de esta página.");
+    else if(c==="unavailable") setV("idle","El dictado no está disponible para tu cuenta. Puedes escribirle a Macondí en el chat.");
+    else if(c==="dismissed") setV("idle","Toca la mariposa cuando quieras hablar.");
+    else if(c==="rate_limited") setV("idle","El micrófono está ocupado. Intenta de nuevo en unos segundos.");
+    else if(c!=="stopped") setV("idle","No pude abrir el micrófono. Toca la mariposa para intentarlo otra vez.");
+  });
+});
+function bump(){ const core=orb.querySelector(".core"); core.style.transform=`scale(${1.05+Math.random()*.08})`; clearTimeout(bump.t); bump.t=setTimeout(()=>core.style.transform="",160); }
+$("#composer").addEventListener("submit",e=>{e.preventDefault();send(input.value)});
+input.addEventListener("keydown",e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send(input.value)}});
+function autoGrow(){input.style.height="auto";input.style.height=Math.min(input.scrollHeight,140)+"px"}
+input.addEventListener("input",autoGrow);
+function setStatus(on){$("#status").classList.toggle("on",on);$("#statusText").textContent=on?"Agente IA en línea":"Modo básico: recomendaciones por palabras clave"}
+
+const mic=$("#mic"); let dictBase="";
+mic.addEventListener("click",()=>{
+  if(!dict){ add("note",NO_MIC); return; }
+  if(mic.classList.contains("live")){ dict.stop().catch(()=>{}); return; }
+  dictBase=input.value?input.value.trim()+" ":"";
+  dict.start().catch(e=>{ const c=e&&e.code; if(c==="not_granted") add("note","No tengo permiso para usar tu micrófono. Puedes activarlo en el menú de permisos de esta página."); else if(c&&c!=="stopped"&&c!=="dismissed") add("note","No pude abrir el micrófono. Inténtalo otra vez."); });
+});
+const speakBtn=$("#speak");
+speakBtn.addEventListener("click",()=>{
+  if(!tts){ add("note","La lectura en voz alta funciona en Chrome, Edge o Safari."); return; }
+  speakOn=!speakOn; speakBtn.setAttribute("aria-pressed",String(speakOn)); if(!speakOn) tts.stop();
+});
+
+/* ---------- quiz ---------- */
+const QUIZ=[
+  {q:"¿Dónde vas a encender tu vela?",key:"espacio",opts:[["Sala","Para compartir y recibir visitas",{dorado:2,selva:1}],["Habitación","Para tu descanso y tus noches",{origen:2,selva:2}],["Baño","Un espacio pequeño",{marea:2,brisa:2}],["Estudio u oficina","Para enfocarte",{brisa:2,origen:2}],["Es un regalo","Para alguien especial",{origen:1,dorado:1,selva:1,marea:1,brisa:1}]]},
+  {q:"¿Cómo te quieres sentir?",key:"animo",opts:[["Abrigado y en calma","Como en las montañas",{origen:3}],["Fresco y con energía","Para arrancar el día",{brisa:3}],["Alegre","Con la energía del llano",{dorado:3}],["Ligero y luminoso","Como frente al mar",{marea:3}],["Misterioso","Algo exótico y diferente",{selva:3}]]},
+  {q:"¿Qué notas te atraen más?",key:"notas",opts:[["Dulces y cálidas","Café, vainilla",{origen:2,dorado:1}],["Cítricas y herbales","Lulo, hierbabuena, limón",{brisa:2,marea:1}],["Tropicales","Coco, mango, maracuyá",{marea:1,dorado:2}],["Frutales y profundas","Açaí, frutos rojos",{selva:2}]]},
+  {q:"¿Cómo están tus manos?",key:"piel",opts:[["Resecas","Necesitan hidratación",{}],["Sensibles","Prefiero ir con cuidado",{}],["Normales","Solo quiero consentirme",{}]]}
+];
+let qi=0, qa=[];
+function renderQuiz(){
+  const p=$("#quizPane");
+  if(qi>=QUIZ.length){
+    const sc={}; qa.forEach((a,i)=>Object.entries(QUIZ[i].opts[a][2]).forEach(([k,v])=>sc[k]=(sc[k]||0)+v));
+    const top=Object.entries(sc).sort((a,b)=>b[1]-a[1]).slice(0,2).map(x=>byId[x[0]]);
+    const c=top[0], skin=QUIZ[3].opts[qa[3]][0];
+    if(exampleShown){exampleShown=false;log.innerHTML="";}
+    QUIZ.forEach((Q,i)=>profile[Q.key]=Q.opts[qa[i]][0]); renderProfile(QUIZ.map(q=>q.key));
+    p.innerHTML=`<p class="q-meta">Tu resultado</p>
+      <div class="result"><img src="img/candle-${c.id}.webp" alt="Vela ${c.name}"><div style="display:flex;flex-direction:column;gap:10px">
+      <h3>Tu vela es ${c.name}</h3><p class="eyebrow">${c.region} · ${c.notes}</p><p>${c.desc}</p>
+      <p class="hint">${top[1]?`Para alternar, prueba también ${top[1].name} (${top[1].notes}). `:""}${skin==="Sensibles"?"Como tu piel es sensible, prueba la cera tibia primero en una zona pequeña.":skin==="Resecas"?"Tus manos resecas van a agradecer el ritual de doble uso: cera tibia, masaje suave.":"Disfruta el ritual de doble uso cuando la cera esté tibia."}</p></div></div>
+      <div class="quiz-nav"><button class="btn btn-ghost" id="qRestart">Repetir test</button><button class="btn btn-primary" id="qTalk">Hablar de esto con Macondí</button></div>`;
+    $("#qRestart").onclick=()=>{qi=0;qa=[];renderQuiz()};
+    $("#qTalk").onclick=()=>{ if(!log.children.length) add("bot","¡Hola! Soy Macondí. Veamos tu resultado.");
+      send(`Hice el test: espacio ${profile.espacio}, quiero sentirme ${profile.animo.toLowerCase()}, me atraen notas ${profile.notas.toLowerCase()}, manos ${profile.piel.toLowerCase()}. Me salió ${c.name}. ¿Qué opinas y cómo la uso?`)};
+    return;
+  }
+  const Q=QUIZ[qi];
+  p.innerHTML=`<div class="qbar"><i style="width:${qi/QUIZ.length*100}%"></i></div><p class="q-meta">Pregunta ${qi+1} de ${QUIZ.length}</p><h3>${Q.q}</h3>
+    <div class="opts">${Q.opts.map((o,i)=>`<button class="opt" data-i="${i}" aria-pressed="${qa[qi]===i}" style="animation:pop .5s ${i*.06}s both">${o[0]}<small>${o[1]}</small></button>`).join("")}</div>
+    <div class="quiz-nav"><button class="btn btn-ghost" id="qBack" ${qi===0?"disabled":""}>Atrás</button><span></span></div>`;
+  requestAnimationFrame(()=>{const b=p.querySelector(".qbar i"); if(b) b.style.width=((qi+.5)/QUIZ.length*100)+"%"});
+  p.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{qa[qi]=+b.dataset.i;b.setAttribute("aria-pressed","true");setTimeout(()=>{qi++;renderQuiz()},220)});
+  $("#qBack").onclick=()=>{if(qi>0){qi--;renderQuiz()}};
+}
+function setTab(t){
+  const chat=t==="chat";
+  $("#tabChat").setAttribute("aria-selected",chat); $("#tabQuiz").setAttribute("aria-selected",!chat);
+  $("#chatPane").style.display=chat?"contents":"none"; $("#quizPane").hidden=chat;
+  if(!chat) renderQuiz();
+}
+$("#tabChat").onclick=()=>setTab("chat"); $("#tabQuiz").onclick=()=>setTab("quiz");
+
+/* ---------- boot ---------- */
+renderProfile(); showExample(); setStatus(false); $("#statusText").textContent="Conectando…";
+if(location.hash==="#agente"){ current="agent"; homeV.hidden=true; agentV.hidden=false; }
+(async()=>{
+  const c=window.claude;
+  if(!c||!c.use){setStatus(false);return}
+  c.use("sample").then(s=>{sample=s;setStatus(!!s)}).catch(()=>setStatus(false));
+  c.use("dictation").then(d=>{
+    if(!d) return; dict=d; orb.disabled=false;
+    if(voiceMode&&dstate==="idle") setV("idle","Toca la mariposa y cuéntame qué buscas");
+    d.onPartial(({text})=>{
+      if(voiceMode){ vPartial=text; renderVT(); bump(); }
+      else { input.value=dictBase+text; autoGrow(); }
+    });
+    d.onFinal(({text})=>{
+      if(voiceMode){
+        vFinal+=text; vPartial=""; renderVT(); bump();
+        clearTimeout(vTimer); vTimer=setTimeout(()=>{ if(dstate==="listening") d.stop().catch(()=>{}) },1800);
+      } else { dictBase=(dictBase+text).trim()+" "; input.value=dictBase; autoGrow(); }
+    });
+    d.onState(({state})=>{
+      dstate=state;
+      mic.classList.toggle("live",state==="listening"); mic.setAttribute("aria-label",state==="listening"?"Detener dictado":"Dictar por voz");
+      if(!voiceMode) return;
+      if(state==="starting") setV("listening","Abriendo el micrófono…");
+      else if(state==="listening") setV("listening","Te escucho… cuando termines, haz una pausa");
+      else if(state==="finishing") setV("thinking","Un momento…");
+      else if(state==="idle"){
+        clearTimeout(vTimer);
+        const t=(vFinal+" "+vPartial).trim(); vFinal=""; vPartial="";
+        if(t) send(t); else if(!busy) setV("idle","Toca la mariposa y cuéntame qué buscas");
+      }
+    });
+  }).catch(()=>{});
+  c.use("tts").then(t=>{ if(!t) return; tts=t; }).catch(()=>{});
+})();
+</script>
+
+</body></html>
