@@ -7,6 +7,7 @@ index.html          ← la página (tienda + agente)
 img/                ← imágenes
 js/runtime.js       ← adaptador: chat → /api/chat, micrófono y voz → navegador
 api/chat.js         ← función de Vercel que llama a OpenAI (streaming)
+api/tts.js          ← función de Vercel: voz con OpenAI (mp3)
 api/_lib/prompt.js  ← instrucciones del agente (solo en el servidor)
 api/_lib/candles.js ← catálogo de velas que usa el agente
 ```
@@ -43,7 +44,7 @@ Para probarlo en tu computador: copia `.env.example` como `.env.local`, pon tu k
 - **Chat con IA:** `/api/chat` agrega las instrucciones de Macondí, manda los últimos 12 mensajes a OpenAI y devuelve la respuesta en streaming.
 - **Sin API key, o si OpenAI falla:** la página pasa sola a "Modo básico" (recomendaciones por palabras clave), así nunca queda rota.
 - **Micrófono:** usa el reconocimiento de voz del navegador (Chrome, Edge y Safari). En Firefox el botón muestra un aviso.
-- **Leer en voz alta:** usa las voces en español del sistema (`speechSynthesis`). Es gratis y no gasta API.
+- **Leer en voz alta:** usa la voz de OpenAI (`/api/tts`, modelo `gpt-4o-mini-tts`, voz `coral` por defecto; cambia con `OPENAI_TTS_VOICE`). Si falla o no hay key, usa la voz del navegador (gratis). También tiene límite por IP (`TTS_RATE_LIMIT_MAX`, 20 cada 10 min).
 
 ## Notas
 

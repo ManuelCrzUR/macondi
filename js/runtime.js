@@ -90,7 +90,7 @@
   }
 
   // ---------- Voz: speechSynthesis ----------
-  function makeTts() {
+  function makeBrowserTts() {
     if (!("speechSynthesis" in window)) return null;
     const synth = window.speechSynthesis;
     // Prefiere voces naturales (neuronales/premium) y español latino; evita las robóticas.
@@ -131,6 +131,53 @@
     };
   }
 
+  // ---------- Voz: OpenAI (/api/tts) con respaldo en la voz del navegador ----------
+  async function makeTts() {
+    const fallback = makeBrowserTts();
+    let remote = false;
+    try { remote = (await fetch("/api/tts", { method: "GET", cache: "no-store" })).ok; } catch {}
+    if (!remote) return fallback;
+
+    let audio = null, ctrl = null, url = null;
+    const cleanup = () => { if (audio) { audio.pause(); audio = null; } if (url) { URL.revokeObjectURL(url); url = null; } };
+    return {
+      async speak(text) {
+        this.stop();
+        ctrl = new AbortController();
+        const mine = ctrl;
+        try {
+          const r = await fetch("/api/tts", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ text }),
+            signal: mine.signal,
+          });
+          if (!r.ok) throw new Error("tts " + r.status);
+          const blob = await r.blob();
+          if (mine.signal.aborted) return;
+          url = URL.createObjectURL(blob);
+          audio = new Audio(url);
+          const a = audio;
+          await new Promise((resolve, reject) => {
+            a.onended = resolve;
+            a.onerror = () => reject(new Error("audio"));
+            a.play().catch(reject);
+          });
+          cleanup();
+        } catch (e) {
+          if (mine.signal.aborted) return;
+          cleanup();
+          if (fallback) return fallback.speak(text); // si OpenAI falla, usa la voz del navegador
+        }
+      },
+      stop() {
+        if (ctrl) { ctrl.abort(); ctrl = null; }
+        cleanup();
+        if (fallback) fallback.stop();
+      },
+    };
+  }
+
   const cache = {};
   window.claude = {
     use(name) {
@@ -138,7 +185,7 @@
         cache[name] =
           name === "sample" ? makeSample() :
           name === "dictation" ? Promise.resolve(makeDictation()) :
-          name === "tts" ? Promise.resolve(makeTts()) :
+          name === "tts" ? makeTts() :
           Promise.resolve(null);
       }
       return cache[name];
