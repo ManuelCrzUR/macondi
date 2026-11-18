@@ -872,6 +872,10 @@ $("#voiceBtn").addEventListener("click",()=>{
   setTab("chat"); voiceMode=true; voiceEl.hidden=false; voiceEl.style.animation="none"; voiceEl.offsetWidth; voiceEl.style.animation="";
   vTextEl.textContent=""; vReplyEl.textContent=""; vRecsEl.innerHTML="";
   orb.disabled=!dict; setV("idle", dict?"Toca la mariposa y cuéntame qué buscas":NO_MIC);
+  if(tts){
+    setV("speaking","Macondí te está hablando…");
+    tts.speak("¡Hola! Soy Macondí, tu guía de aromas. Toca la mariposa y cuéntame qué buscas.",{language:"es"}).catch(()=>{}).finally(()=>{ if(voiceMode&&dstate==="idle"&&!busy) setV("idle", dict?"Toca la mariposa y cuéntame qué buscas":NO_MIC); });
+  }
 });
 $("#vClose").addEventListener("click",()=>{
   voiceMode=false; voiceEl.hidden=true; clearTimeout(vTimer);

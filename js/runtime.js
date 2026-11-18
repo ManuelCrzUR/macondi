@@ -120,7 +120,7 @@
             const u = new SpeechSynthesisUtterance(part);
             if (v) u.voice = v;
             u.lang = v ? v.lang : "es-CO";
-            u.rate = 1.19; // +10%
+            u.rate = 1.0;
             u.pitch = 1.0;
             u.onend = u.onerror = () => { if (i === parts.length - 1) resolve(); };
             synth.speak(u);
@@ -157,8 +157,6 @@
           if (mine.signal.aborted) return;
           url = URL.createObjectURL(blob);
           audio = new Audio(url);
-          audio.playbackRate = 1.1; // +10% más rápido (mantiene el tono)
-          audio.preservesPitch = true;
           const a = audio;
           await new Promise((resolve, reject) => {
             a.onended = resolve;
