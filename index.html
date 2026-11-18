@@ -102,7 +102,7 @@ button{font-family:inherit;cursor:pointer}
 
 /* ABOUT */
 .about{padding-block:clamp(90px,10vw,150px);position:relative;overflow:hidden}
-.about .wrap{position:relative;z-index:2}
+.about .wrap{position:relative;z-index:2;padding-left:max(clamp(28px,6vw,96px),env(safe-area-inset-left,0px));padding-right:max(clamp(28px,6vw,96px),env(safe-area-inset-right,0px))}
 .about-copy{max-width:min(660px,calc(100% - 360px))}
 .about h2{font-size:clamp(2.4rem,6vw,4.6rem);color:var(--orange);font-weight:560;line-height:1}
 .about p.lead{margin-top:24px;font-size:clamp(1rem,1.5vw,1.1rem);letter-spacing:.07em;line-height:1.9;max-width:38em}
