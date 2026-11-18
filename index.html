@@ -324,6 +324,8 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
 #veil .vw.l{left:-40px}#veil .vw.r{right:-40px}
 #veil .mark{position:relative;z-index:2;text-align:center;color:var(--paper);display:flex;flex-direction:column;align-items:center;gap:10px}
 #veil .mark b{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 144;font-weight:640;font-size:clamp(2.6rem,9vw,6rem);letter-spacing:.03em;line-height:1;color:var(--green)}
+#veil .mark h2{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:600;font-size:clamp(1.3rem,3.6vw,2rem);line-height:1.25;color:var(--green);max-width:20em;margin:14px 0 0}
+#veil .mark p{font-size:clamp(.95rem,2vw,1.1rem);line-height:1.55;color:var(--green);max-width:32em;margin:0;padding:0 20px}
 #veil .mark span{letter-spacing:.4em;text-transform:uppercase;font-size:.78rem;color:var(--green)}
 #veil .vbf{width:110px;perspective:500px}
 #veil .vbf img{width:100%;transform-origin:74% 82%;animation:flap .2s ease-in-out infinite alternate}
@@ -351,6 +353,7 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
 .voice.speaking .core{animation:talk .5s ease-in-out infinite alternate}
 @keyframes talk{to{transform:scale(1.08)}}
 .vstate{font-family:var(--display);font-variation-settings:"SOFT" 100;font-weight:600;font-size:1.3rem;color:var(--green);max-width:24em;line-height:1.35}
+.voice .vtext,.voice .vreply{display:none}
 .vtext{font-size:1rem;color:var(--ink);max-width:32em;min-height:1.6em}
 .vtext .partial{color:var(--muted);font-style:italic}
 .vreply{font-size:.92rem;color:var(--muted);max-width:34em;white-space:pre-wrap;line-height:1.6}
@@ -503,11 +506,6 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
   </div>
   <main class="a-main">
     <div class="wrap">
-      <div class="a-head">
-        <p class="eyebrow enter" style="--dl:.05s">Tu guía de aromas</p>
-        <h1 class="enter" style="--dl:.12s">Cuéntale a Macondí cómo quieres sentirte</h1>
-        <p class="enter" style="--dl:.2s">Escríbele o háblale. Considera tu espacio, tu piel, el momento del día y los olores que te gustan.</p>
-      </div>
       <div class="studio">
         <div class="panel chatbox enter" style="--dl:.3s">
           <div class="chat-top">
@@ -566,7 +564,7 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
 <div id="veil" hidden aria-hidden="true">
   <img class="vw l" src="img/waves-left.webp" alt="">
   <img class="vw r" src="img/waves-right.webp" alt="">
-  <div class="mark"><div class="vbf"><img src="img/butterfly.webp" alt=""></div><b>MACONDÍ</b><span id="veilText">Tu guía de aromas</span></div>
+  <div class="mark"><div class="vbf"><img src="img/butterfly.webp" alt=""></div><b>MACONDÍ</b><span id="veilText">Tu guía de aromas</span><h2 id="veilTitle" hidden>Cuéntale a Macondí cómo quieres sentirte</h2><p id="veilSub" hidden>Escríbele o háblale. Considera tu espacio, tu piel, el momento del día y los olores que te gustan.</p></div>
 </div>
 
 <script>
@@ -727,6 +725,7 @@ async function go(v,target){
   if(moving||v===current){ if(target) target.scrollIntoView(); return; }
   moving=true;
   $("#veilText").textContent=v==="agent"?"Tu guía de aromas":"Aromas de una tierra mágica";
+  $("#veilTitle").hidden=$("#veilSub").hidden=v!=="agent";
   if(REDUCE){ show(v); scrollTo(0,0); if(target) target.scrollIntoView(); moving=false; afterShow(v); return; }
   const c0=lastClick||{x:innerWidth/2,y:innerHeight/2}; lastClick=null;
   const o={x:c0.x/ZF,y:c0.y/ZF};
@@ -737,7 +736,7 @@ async function go(v,target){
   await veil.animate([{clipPath:`circle(0px at ${o.x}px ${o.y}px)`},{clipPath:`circle(${R}px at ${o.x}px ${o.y}px)`}],{duration:720,easing:"cubic-bezier(.7,0,.25,1)",fill:"forwards"}).finished;
   show(v); document.documentElement.style.scrollBehavior="auto"; scrollTo(0,0); if(target) target.scrollIntoView();
   document.documentElement.style.scrollBehavior="";
-  await new Promise(r=>setTimeout(r,520));
+  await new Promise(r=>setTimeout(r,v==="agent"?4200:520));
   mark.animate([{opacity:1,transform:"none"},{opacity:0,transform:"translateY(-24px)"}],{duration:400,fill:"forwards"});
   await veil.animate([{clipPath:"inset(0 0 0 0)"},{clipPath:"inset(0 0 100% 0)"}],{duration:800,easing:"cubic-bezier(.7,0,.25,1)",fill:"forwards"}).finished;
   veil.hidden=true; veil.getAnimations().forEach(a=>a.cancel()); mark.getAnimations().forEach(a=>a.cancel());
