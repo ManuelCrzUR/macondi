@@ -1,6 +1,8 @@
 // Función serverless de Vercel: voz de Macondí con OpenAI (texto → audio mp3).
 const MODEL = process.env.OPENAI_TTS_MODEL || "gpt-4o-mini-tts";
 const VOICE = process.env.OPENAI_TTS_VOICE || "coral";
+// Voz personalizada creada en OpenAI (voice_...). Si falla, se usa VOICE.
+const CUSTOM_VOICE_ID = (process.env.OPENAI_TTS_VOICE_ID || "").trim();
 const BASE_URL = (process.env.OPENAI_BASE_URL || "https://api.openai.com/v1").replace(/\/$/, "");
 const MAX_CHARS = 900;
 const RATE_MAX = Number(process.env.TTS_RATE_LIMIT_MAX || 20);
@@ -48,11 +50,19 @@ export async function POST(request) {
   const text = typeof body?.text === "string" ? body.text.replace(/\s+/g, " ").trim().slice(0, MAX_CHARS) : "";
   if (!text) return json(400, { code: "bad_request" });
 
-  const upstream = await fetch(`${BASE_URL}/audio/speech`, {
-    method: "POST",
-    headers: { authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "content-type": "application/json" },
-    body: JSON.stringify({ model: MODEL, voice: VOICE, input: text, instructions: INSTRUCTIONS, response_format: "mp3" }),
-  }).catch(() => null);
+  const speak = (voice) =>
+    fetch(`${BASE_URL}/audio/speech`, {
+      method: "POST",
+      headers: { authorization: `Bearer ${process.env.OPENAI_API_KEY}`, "content-type": "application/json" },
+      body: JSON.stringify({ model: MODEL, voice, input: text, instructions: INSTRUCTIONS, response_format: "mp3" }),
+    }).catch(() => null);
+
+  let upstream = CUSTOM_VOICE_ID ? await speak({ id: CUSTOM_VOICE_ID }) : null;
+  if (CUSTOM_VOICE_ID && !(upstream && upstream.ok)) {
+    console.error("Voz personalizada falló", upstream?.status || 0, upstream ? (await upstream.text().catch(() => "")).slice(0, 300) : "network");
+    upstream = null;
+  }
+  if (!upstream) upstream = await speak(VOICE);
 
   if (!upstream || !upstream.ok || !upstream.body) {
     const detail = upstream ? await upstream.text().catch(() => "") : "network";
