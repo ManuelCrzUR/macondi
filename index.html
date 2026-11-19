@@ -1,4 +1,4 @@
-<!doctype html><html lang="es"><head><title>Macondí — Aromas de una tierra mágica</title><meta name="description" content="Velas aromáticas de doble uso inspiradas en las regiones de Colombia. Habla con Macondí, tu guía de aromas."><link rel="icon" href="img/butterfly.webp" type="image/webp"><script src="js/runtime.js"></script><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<!doctype html><html lang="es"><head><title>Macondí — Aromas de una tierra mágica</title><meta name="description" content="Velas aromáticas de doble uso inspiradas en las regiones de Colombia. Habla con Macondí, tu guía de aromas."><link rel="icon" href="img/butterfly.webp" type="image/webp"><script src="js/runtime.js"></script><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..800,0..100,0..1&family=Poppins:wght@300;400;500;600&display=swap">
@@ -21,7 +21,7 @@ html{scroll-behavior:smooth}
 @media (min-width:900px){:root{--z:1.12}}
 @media (min-width:1200px){:root{--z:1.25}}
 body{zoom:var(--z)}
-body{background:var(--cream);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.7;overflow-x:hidden}
+body{background:var(--cream);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.7;overflow-x:hidden;overflow-x:clip;-webkit-text-size-adjust:100%;text-size-adjust:100%}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--cream)}
 .wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 h1,h2,h3{font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1;text-wrap:balance;margin:0;color:var(--green)}
@@ -230,7 +230,7 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
 .fab.away{transform:translateY(140%);opacity:0;pointer-events:none}
 
 /* ---------- AGENT VIEW ---------- */
-#agentView{position:relative;min-height:calc(100vh / var(--z));overflow:hidden}
+#agentView{position:relative;min-height:calc(100vh / var(--z));min-height:calc(100dvh / var(--z));overflow:hidden}
 #agentView .bg{position:absolute;inset:0;pointer-events:none;z-index:0}
 #agentView .bg img{position:absolute;top:0;height:100%;width:auto;max-width:none;opacity:.8}
 #agentView .bg .l{left:-80px}#agentView .bg .r{right:-80px}
@@ -250,7 +250,7 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
 .studio{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-items:stretch;max-width:920px;margin-inline:auto}
 @media (max-width:900px){.studio{grid-template-columns:1fr}}
 .panel{background:rgba(255,249,236,.88);backdrop-filter:blur(14px);border-radius:28px;box-shadow:0 0 0 1px rgba(255,255,255,.6),0 40px 70px -40px rgba(90,50,10,.45);min-width:0}
-.chatbox{display:flex;flex-direction:column;height:min(680px,calc(100vh / var(--z) - 230px));min-height:520px;overflow:hidden}
+.chatbox{display:flex;flex-direction:column;height:min(680px,calc(100vh / var(--z) - 230px));height:min(680px,calc(100dvh / var(--z) - 230px));min-height:520px;overflow:hidden}
 .enter{animation:up .9s var(--ease) both;animation-delay:var(--dl,0s)}
 .chat-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
 .who{display:flex;gap:12px;align-items:center}
@@ -365,6 +365,145 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
 .voice .recs{align-self:center;justify-content:center}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}.thread path{stroke-dashoffset:0}}
+
+/* ================= RESPONSIVE / MÓVIL ================= */
+.nav-toggle{display:none}
+.nav-toggle .i-close{display:none}
+.nav.open .nav-toggle .i-open{display:none}
+.nav.open .nav-toggle .i-close{display:block}
+img,svg,video{max-width:100%}
+.hero .layer img,.about-art img,.invite .wl,.invite .wr,#agentView .bg img,#veil .vw{max-width:none}
+
+@media (max-width:860px){
+  .nav-toggle{display:inline-grid;place-items:center;width:44px;height:44px;flex:none;border:0;border-radius:50%;background:transparent;color:var(--green);margin-right:-10px}
+  .nav .wrap{gap:8px}
+  .nav .wrap .btn{margin-left:auto}
+  .nav ul{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;background:var(--cream);border-bottom:1px solid var(--line);padding:4px max(18px,env(safe-area-inset-right,0px)) 12px max(18px,env(safe-area-inset-left,0px));box-shadow:0 24px 40px -28px rgba(60,40,10,.4)}
+  .nav.open ul{display:flex}
+  .nav ul a{display:block;padding:15px 4px;font-size:.82rem;border-bottom:1px solid var(--line)}
+  .nav ul li:last-child a{border-bottom:0}
+  .nav ul a::after{display:none}
+}
+@media (max-width:600px){
+  .nav .wrap > .btn{display:none}
+  .nav .wrap{padding-block:6px}
+  .nav-toggle{margin-left:auto}
+}
+
+/* tablet intermedio: texto y arte de "Nosotros" no se pisan */
+@media (min-width:901px) and (max-width:1100px){.about-copy{max-width:min(640px,calc(100% - 240px))}}
+
+/* ---------- móvil ---------- */
+@media (max-width:640px){
+  body{font-size:15px}
+  .wrap{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+
+  /* hero */
+  .hero{min-height:min(100svh,760px);padding-block:96px 96px}
+  .hero-inner{gap:16px}
+  .tagline{letter-spacing:.26em;font-size:.7rem}
+  .hero-sub{font-size:.95rem;line-height:1.65;color:var(--ink);text-shadow:0 0 12px var(--cream),0 0 4px var(--cream)}
+  .hero .layer{height:46%}
+  .hero .layer.l{top:70px}
+  .hero .layer.r{bottom:-10px}
+  .hero-cta{width:100%;flex-direction:column;align-items:stretch}
+  .hero-cta .btn{justify-content:center;width:100%}
+  .scroll-cue{bottom:14px}
+  @keyframes track{from{opacity:0;letter-spacing:.7em}to{opacity:1;letter-spacing:.26em}}
+
+  /* nosotros */
+  .about .wrap{padding-left:max(22px,env(safe-area-inset-left,0px));padding-right:max(22px,env(safe-area-inset-right,0px))}
+  .about p.lead{letter-spacing:.03em;line-height:1.8}
+  .about-art{height:240px}
+  .values{gap:18px}
+
+  /* colección */
+  .col-head{margin-bottom:30px}
+  .col-head p{letter-spacing:.16em}
+  .card{flex-basis:min(78vw,290px)}
+
+  /* ritual */
+  .ritual .wrap{gap:36px}
+  .rstage{padding:44px 14px 24px}
+  .rtag{font-size:.64rem;letter-spacing:.1em;max-width:calc(100% - 28px);white-space:normal;text-align:center;line-height:1.3}
+  .thermo{right:2%;padding:6px 10px;font-size:.7rem}
+  .steps li{grid-template-columns:38px 1fr;gap:12px;padding:14px 16px}
+  .steps li::before{font-size:1.8rem}
+  .steps li:hover{transform:none}
+
+  /* invitación / footer */
+  .invite{padding-block:84px}
+  .invite .wl{left:-130px}.invite .wr{right:-130px}
+  .invite .wl,.invite .wr{opacity:.3}
+  .invite .btn,.fab{justify-content:center}
+  footer{padding-block:44px 32px}
+  footer .wrap{flex-direction:column;align-items:flex-start;gap:18px}
+  .fab{padding:.8em 1.3em;font-size:.72rem}
+
+  /* agente */
+  #backBtn{white-space:nowrap;font-size:.7rem;letter-spacing:.07em;padding:.6em .9em .6em .8em;gap:6px}
+  .a-top .logo-sm{font-size:1.25rem}
+  #agentView .bg img{opacity:.45}
+  #agentView .bg .l{left:-140px}#agentView .bg .r{right:-140px}
+  .a-top .wrap{padding-block:10px}
+  .a-main{padding-block:0 14px}
+  .a-head{margin-bottom:14px;gap:6px}
+  .a-head p{font-size:.88rem;line-height:1.5}
+  .panel{border-radius:22px}
+  .chatbox{height:calc(var(--app-h,100dvh) / var(--z) - 150px);min-height:380px}
+  .chat-top{padding:10px 12px;gap:10px}
+  .top-r{width:100%;gap:8px;flex-wrap:nowrap}
+  .tabs{flex:1;min-width:0}
+  .tabs button{flex:1;padding:.6em .4em;font-size:.66rem;letter-spacing:.06em}
+  .voicebtn{flex:none;padding:.6em .9em}
+  .log{padding:16px 12px;gap:12px}
+  .msg{max-width:92%;font-size:.9rem}
+  .recs{width:100%}
+  .rec{flex:1 1 100%}
+  .chatbox .chips{padding:0 12px 8px;max-height:92px;overflow-y:auto}
+  .composer{flex-wrap:wrap;padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px));gap:8px}
+  .composer textarea{order:-1;flex:1 1 100%;font-size:16px;padding:11px 14px}
+  #mic{margin-right:auto}
+  .quiz{padding:18px 14px}
+  .quiz h3{font-size:1.3rem}
+  .opts{grid-template-columns:1fr}
+  .quiz-nav .btn{flex:1;justify-content:center}
+  .prof div{grid-template-columns:78px 1fr}
+  .side{padding:18px 14px}
+  .voice{padding:56px 16px 20px}
+  .orb{width:150px;height:150px}.orb .core{width:108px;height:108px}.orb .core img{width:56px}
+  .vstate{font-size:1.12rem}
+  #veil .vw.l{left:-120px}#veil .vw.r{right:-120px}
+  #veil .vbf{width:84px}
+  #veil .mark{padding-inline:18px}
+}
+@media (max-width:380px){
+  .wordmark{font-size:clamp(2.8rem,14vw,3.6rem)}
+  .tabs button{font-size:.6rem;padding:.6em .25em}
+  .voicebtn{font-size:.66rem;gap:6px}
+}
+
+/* teléfono en horizontal */
+@media (max-height:480px) and (orientation:landscape){
+  .hero{min-height:0;padding-block:70px 60px}
+  .scroll-cue{display:none}
+  .chatbox{height:calc(var(--app-h,100dvh) / var(--z) - 70px);min-height:260px}
+  .a-head{display:none}
+}
+
+/* táctil: zonas de toque cómodas y sin efectos hover pegados */
+@media (pointer:coarse){
+  .chip{min-height:40px;display:inline-flex;align-items:center;padding:.5em 1em}
+  .tabs button,.back,.voicebtn{min-height:40px}
+  .card .ask{padding:12px 4px;margin-top:2px}
+  .iconbtn{width:44px;height:44px}
+  .opt{min-height:48px}
+}
+@media (hover:none){
+  .card:hover,.card:focus-within{transform:none;box-shadow:none}
+  .card:hover .shot img{transform:none}
+  .chip:hover,.opt:hover,.btn-primary:hover,.btn-sun:hover,.voicebtn:hover,#backBtn:hover{transform:none}
+}
 </style>
 
 <!-- ================= TIENDA ================= -->
@@ -372,18 +511,22 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
   <nav class="nav" aria-label="Principal" id="nav">
     <div class="wrap">
       <a class="logo-sm" href="#inicio">MACONDÍ</a>
-      <ul>
+      <ul id="navList">
         <li><a href="#nosotros">Nosotros</a></li>
         <li><a href="#coleccion">Colección</a></li>
         <li><a href="#ritual">Doble uso</a></li>
         <li><a href="#agente" data-go-agent>Encuentra tu vela</a></li>
       </ul>
       <a class="btn btn-primary" href="#agente" data-go-agent>Habla con Macondí</a>
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="navList">
+        <svg class="i-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="i-close" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </nav>
 
   <header class="hero" id="inicio">
-    <div class="layer l"><div class="in"><img class="sway-l" src="img/hero-left.webp" alt=""></div></div>
+    <div class="layer l"><div class="in"><img class="sway-l" src="img/hero-left.webp" alt="" fetchpriority="high" decoding="async"></div></div>
     <div class="layer r"><div class="in"><img class="sway-r" src="img/hero-right.webp" alt=""></div></div>
     <svg class="thread" viewBox="0 0 1600 900" preserveAspectRatio="none" aria-hidden="true">
       <path pathLength="1" d="M420 600 C520 640 600 700 700 760 C820 830 960 840 1060 800 C1160 760 1200 700 1300 690"/>
@@ -443,7 +586,7 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
       <div class="rstage s1" id="rstage" data-rv aria-hidden="true">
         <span class="rtag" id="rtag">El aroma llena tu espacio</span>
         <div class="rimg">
-          <img src="img/candle-origen.webp" alt="">
+          <img src="img/candle-origen.webp" alt="" loading="lazy" decoding="async">
           <span class="pool"></span>
           <span class="fl" style="--fx:54.2%;--fy:28.8%"><b><i></i></b></span>
           <svg class="wisps aroma" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -474,8 +617,8 @@ footer p{font-size:.82rem;color:#e8d9b5;max-width:26em}
   </section>
 
   <section class="invite" id="invitacion">
-    <img class="wl sway-l" src="img/waves-left.webp" alt="" aria-hidden="true">
-    <img class="wr sway-r" src="img/waves-right.webp" alt="" aria-hidden="true">
+    <img class="wl sway-l" src="img/waves-left.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
+    <img class="wr sway-r" src="img/waves-right.webp" alt="" aria-hidden="true" loading="lazy" decoding="async">
     <div class="wrap">
       <p class="eyebrow" data-rv>Tu guía de aromas</p>
       <h2 data-rv style="--dl:.08s">¿No sabes cuál elegir?</h2>
@@ -1002,4 +1145,22 @@ if(location.hash==="#agente"){ current="agent"; homeV.hidden=true; agentV.hidden
 })();
 </script>
 
+
+<script>
+/* Menú móvil + alto real de pantalla (teclado) */
+(()=>{
+  const nav=document.getElementById("nav"),btn=document.getElementById("navToggle");
+  if(nav&&btn){
+    const set=o=>{nav.classList.toggle("open",o);btn.setAttribute("aria-expanded",o);btn.setAttribute("aria-label",o?"Cerrar menú":"Abrir menú")};
+    btn.addEventListener("click",()=>set(!nav.classList.contains("open")));
+    nav.querySelectorAll("#navList a").forEach(a=>a.addEventListener("click",()=>set(false)));
+    document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nav.classList.contains("open")){set(false);btn.focus()}});
+    document.addEventListener("click",e=>{if(nav.classList.contains("open")&&!nav.contains(e.target))set(false)});
+    matchMedia("(min-width:861px)").addEventListener("change",e=>{if(e.matches)set(false)});
+  }
+  const root=document.documentElement,vv=window.visualViewport;
+  const upd=()=>root.style.setProperty("--app-h",(vv?vv.height:innerHeight)+"px");
+  upd();(vv||window).addEventListener("resize",upd);
+})();
+</script>
 </body></html>
